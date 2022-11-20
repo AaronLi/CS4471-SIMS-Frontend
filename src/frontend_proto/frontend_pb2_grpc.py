@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import frontend_messages_pb2 as frontend__messages__pb2
+from frontend_proto import frontend_messages_pb2 as frontend__proto_dot_frontend__messages__pb2
 
 
 class SimsFrontendStub(object):
@@ -16,13 +16,13 @@ class SimsFrontendStub(object):
         """
         self.CredAuth = channel.unary_unary(
                 '/sims_ims_frontend.SimsFrontend/CredAuth',
-                request_serializer=frontend__messages__pb2.LoginRequest.SerializeToString,
-                response_deserializer=frontend__messages__pb2.Token.FromString,
+                request_serializer=frontend__proto_dot_frontend__messages__pb2.LoginRequest.SerializeToString,
+                response_deserializer=frontend__proto_dot_frontend__messages__pb2.Token.FromString,
                 )
         self.ClientCmd = channel.unary_unary(
                 '/sims_ims_frontend.SimsFrontend/ClientCmd',
-                request_serializer=frontend__messages__pb2.ClientAction.SerializeToString,
-                response_deserializer=frontend__messages__pb2.ActionApproved.FromString,
+                request_serializer=frontend__proto_dot_frontend__messages__pb2.ClientAction.SerializeToString,
+                response_deserializer=frontend__proto_dot_frontend__messages__pb2.ActionApproved.FromString,
                 )
 
 
@@ -46,13 +46,13 @@ def add_SimsFrontendServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'CredAuth': grpc.unary_unary_rpc_method_handler(
                     servicer.CredAuth,
-                    request_deserializer=frontend__messages__pb2.LoginRequest.FromString,
-                    response_serializer=frontend__messages__pb2.Token.SerializeToString,
+                    request_deserializer=frontend__proto_dot_frontend__messages__pb2.LoginRequest.FromString,
+                    response_serializer=frontend__proto_dot_frontend__messages__pb2.Token.SerializeToString,
             ),
             'ClientCmd': grpc.unary_unary_rpc_method_handler(
                     servicer.ClientCmd,
-                    request_deserializer=frontend__messages__pb2.ClientAction.FromString,
-                    response_serializer=frontend__messages__pb2.ActionApproved.SerializeToString,
+                    request_deserializer=frontend__proto_dot_frontend__messages__pb2.ClientAction.FromString,
+                    response_serializer=frontend__proto_dot_frontend__messages__pb2.ActionApproved.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -76,8 +76,8 @@ class SimsFrontend(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/sims_ims_frontend.SimsFrontend/CredAuth',
-            frontend__messages__pb2.LoginRequest.SerializeToString,
-            frontend__messages__pb2.Token.FromString,
+            frontend__proto_dot_frontend__messages__pb2.LoginRequest.SerializeToString,
+            frontend__proto_dot_frontend__messages__pb2.Token.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -93,7 +93,7 @@ class SimsFrontend(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/sims_ims_frontend.SimsFrontend/ClientCmd',
-            frontend__messages__pb2.ClientAction.SerializeToString,
-            frontend__messages__pb2.ActionApproved.FromString,
+            frontend__proto_dot_frontend__messages__pb2.ClientAction.SerializeToString,
+            frontend__proto_dot_frontend__messages__pb2.ActionApproved.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

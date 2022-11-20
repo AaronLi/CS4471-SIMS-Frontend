@@ -2,10 +2,10 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import item_messages_pb2 as item__messages__pb2
-import shelf_messages_pb2 as shelf__messages__pb2
-import slot_messages_pb2 as slot__messages__pb2
-import user_messages_pb2 as user__messages__pb2
+from backend_proto import item_messages_pb2 as backend__proto_dot_item__messages__pb2
+from backend_proto import shelf_messages_pb2 as backend__proto_dot_shelf__messages__pb2
+from backend_proto import slot_messages_pb2 as backend__proto_dot_slot__messages__pb2
+from backend_proto import user_messages_pb2 as backend__proto_dot_user__messages__pb2
 
 
 class SimsInventoryInformationSystemStub(object):
@@ -18,84 +18,84 @@ class SimsInventoryInformationSystemStub(object):
             channel: A grpc.Channel.
         """
         self.CreateUser = channel.unary_unary(
-                '/SimsIMS.SimsInventoryInformationSystem/CreateUser',
-                request_serializer=user__messages__pb2.CreateUserRequest.SerializeToString,
-                response_deserializer=user__messages__pb2.CreateUserResponse.FromString,
+                '/sims_ims_backend.SimsInventoryInformationSystem/CreateUser',
+                request_serializer=backend__proto_dot_user__messages__pb2.CreateUserRequest.SerializeToString,
+                response_deserializer=backend__proto_dot_user__messages__pb2.CreateUserResponse.FromString,
                 )
         self.ReadUser = channel.unary_unary(
-                '/SimsIMS.SimsInventoryInformationSystem/ReadUser',
-                request_serializer=user__messages__pb2.ReadUserRequest.SerializeToString,
-                response_deserializer=user__messages__pb2.ReadUserResponse.FromString,
+                '/sims_ims_backend.SimsInventoryInformationSystem/ReadUser',
+                request_serializer=backend__proto_dot_user__messages__pb2.ReadUserRequest.SerializeToString,
+                response_deserializer=backend__proto_dot_user__messages__pb2.ReadUserResponse.FromString,
                 )
         self.DeleteUser = channel.unary_unary(
-                '/SimsIMS.SimsInventoryInformationSystem/DeleteUser',
-                request_serializer=user__messages__pb2.DeleteUserRequest.SerializeToString,
-                response_deserializer=user__messages__pb2.DeleteUserResponse.FromString,
+                '/sims_ims_backend.SimsInventoryInformationSystem/DeleteUser',
+                request_serializer=backend__proto_dot_user__messages__pb2.DeleteUserRequest.SerializeToString,
+                response_deserializer=backend__proto_dot_user__messages__pb2.DeleteUserResponse.FromString,
                 )
         self.CreateShelf = channel.unary_unary(
-                '/SimsIMS.SimsInventoryInformationSystem/CreateShelf',
-                request_serializer=shelf__messages__pb2.CreateShelfRequest.SerializeToString,
-                response_deserializer=shelf__messages__pb2.CreateShelfResponse.FromString,
+                '/sims_ims_backend.SimsInventoryInformationSystem/CreateShelf',
+                request_serializer=backend__proto_dot_shelf__messages__pb2.CreateShelfRequest.SerializeToString,
+                response_deserializer=backend__proto_dot_shelf__messages__pb2.CreateShelfResponse.FromString,
                 )
         self.ReadShelf = channel.unary_unary(
-                '/SimsIMS.SimsInventoryInformationSystem/ReadShelf',
-                request_serializer=shelf__messages__pb2.ReadShelfRequest.SerializeToString,
-                response_deserializer=shelf__messages__pb2.ReadShelfResponse.FromString,
+                '/sims_ims_backend.SimsInventoryInformationSystem/ReadShelf',
+                request_serializer=backend__proto_dot_shelf__messages__pb2.ReadShelfRequest.SerializeToString,
+                response_deserializer=backend__proto_dot_shelf__messages__pb2.ReadShelfResponse.FromString,
                 )
         self.UpdateShelf = channel.unary_unary(
-                '/SimsIMS.SimsInventoryInformationSystem/UpdateShelf',
-                request_serializer=shelf__messages__pb2.UpdateShelfRequest.SerializeToString,
-                response_deserializer=shelf__messages__pb2.UpdateShelfResponse.FromString,
+                '/sims_ims_backend.SimsInventoryInformationSystem/UpdateShelf',
+                request_serializer=backend__proto_dot_shelf__messages__pb2.UpdateShelfRequest.SerializeToString,
+                response_deserializer=backend__proto_dot_shelf__messages__pb2.UpdateShelfResponse.FromString,
                 )
         self.DeleteShelf = channel.unary_unary(
-                '/SimsIMS.SimsInventoryInformationSystem/DeleteShelf',
-                request_serializer=shelf__messages__pb2.DeleteShelfRequest.SerializeToString,
-                response_deserializer=shelf__messages__pb2.DeleteShelfResponse.FromString,
+                '/sims_ims_backend.SimsInventoryInformationSystem/DeleteShelf',
+                request_serializer=backend__proto_dot_shelf__messages__pb2.DeleteShelfRequest.SerializeToString,
+                response_deserializer=backend__proto_dot_shelf__messages__pb2.DeleteShelfResponse.FromString,
                 )
         self.CreateSlot = channel.unary_unary(
-                '/SimsIMS.SimsInventoryInformationSystem/CreateSlot',
-                request_serializer=slot__messages__pb2.CreateSlotRequest.SerializeToString,
-                response_deserializer=slot__messages__pb2.CreateSlotResponse.FromString,
+                '/sims_ims_backend.SimsInventoryInformationSystem/CreateSlot',
+                request_serializer=backend__proto_dot_slot__messages__pb2.CreateSlotRequest.SerializeToString,
+                response_deserializer=backend__proto_dot_slot__messages__pb2.CreateSlotResponse.FromString,
                 )
         self.ReadSlot = channel.unary_unary(
-                '/SimsIMS.SimsInventoryInformationSystem/ReadSlot',
-                request_serializer=slot__messages__pb2.ReadSlotRequest.SerializeToString,
-                response_deserializer=slot__messages__pb2.ReadSlotResponse.FromString,
+                '/sims_ims_backend.SimsInventoryInformationSystem/ReadSlot',
+                request_serializer=backend__proto_dot_slot__messages__pb2.ReadSlotRequest.SerializeToString,
+                response_deserializer=backend__proto_dot_slot__messages__pb2.ReadSlotResponse.FromString,
                 )
         self.UpdateSlot = channel.unary_unary(
-                '/SimsIMS.SimsInventoryInformationSystem/UpdateSlot',
-                request_serializer=slot__messages__pb2.UpdateSlotRequest.SerializeToString,
-                response_deserializer=slot__messages__pb2.UpdateSlotResponse.FromString,
+                '/sims_ims_backend.SimsInventoryInformationSystem/UpdateSlot',
+                request_serializer=backend__proto_dot_slot__messages__pb2.UpdateSlotRequest.SerializeToString,
+                response_deserializer=backend__proto_dot_slot__messages__pb2.UpdateSlotResponse.FromString,
                 )
         self.DeleteSlot = channel.unary_unary(
-                '/SimsIMS.SimsInventoryInformationSystem/DeleteSlot',
-                request_serializer=slot__messages__pb2.DeleteSlotRequest.SerializeToString,
-                response_deserializer=slot__messages__pb2.DeleteSlotResponse.FromString,
+                '/sims_ims_backend.SimsInventoryInformationSystem/DeleteSlot',
+                request_serializer=backend__proto_dot_slot__messages__pb2.DeleteSlotRequest.SerializeToString,
+                response_deserializer=backend__proto_dot_slot__messages__pb2.DeleteSlotResponse.FromString,
                 )
         self.CreateSlots = channel.unary_unary(
-                '/SimsIMS.SimsInventoryInformationSystem/CreateSlots',
-                request_serializer=slot__messages__pb2.CreateSlotsRequest.SerializeToString,
-                response_deserializer=slot__messages__pb2.CreateSlotsResponse.FromString,
+                '/sims_ims_backend.SimsInventoryInformationSystem/CreateSlots',
+                request_serializer=backend__proto_dot_slot__messages__pb2.CreateSlotsRequest.SerializeToString,
+                response_deserializer=backend__proto_dot_slot__messages__pb2.CreateSlotsResponse.FromString,
                 )
         self.CreateItem = channel.unary_unary(
-                '/SimsIMS.SimsInventoryInformationSystem/CreateItem',
-                request_serializer=item__messages__pb2.CreateItemRequest.SerializeToString,
-                response_deserializer=item__messages__pb2.CreateItemResponse.FromString,
+                '/sims_ims_backend.SimsInventoryInformationSystem/CreateItem',
+                request_serializer=backend__proto_dot_item__messages__pb2.CreateItemRequest.SerializeToString,
+                response_deserializer=backend__proto_dot_item__messages__pb2.CreateItemResponse.FromString,
                 )
         self.ReadItem = channel.unary_unary(
-                '/SimsIMS.SimsInventoryInformationSystem/ReadItem',
-                request_serializer=item__messages__pb2.ReadItemRequest.SerializeToString,
-                response_deserializer=item__messages__pb2.ReadItemResponse.FromString,
+                '/sims_ims_backend.SimsInventoryInformationSystem/ReadItem',
+                request_serializer=backend__proto_dot_item__messages__pb2.ReadItemRequest.SerializeToString,
+                response_deserializer=backend__proto_dot_item__messages__pb2.ReadItemResponse.FromString,
                 )
         self.UpdateItem = channel.unary_unary(
-                '/SimsIMS.SimsInventoryInformationSystem/UpdateItem',
-                request_serializer=item__messages__pb2.UpdateItemRequest.SerializeToString,
-                response_deserializer=item__messages__pb2.UpdateItemResponse.FromString,
+                '/sims_ims_backend.SimsInventoryInformationSystem/UpdateItem',
+                request_serializer=backend__proto_dot_item__messages__pb2.UpdateItemRequest.SerializeToString,
+                response_deserializer=backend__proto_dot_item__messages__pb2.UpdateItemResponse.FromString,
                 )
         self.DeleteItem = channel.unary_unary(
-                '/SimsIMS.SimsInventoryInformationSystem/DeleteItem',
-                request_serializer=item__messages__pb2.DeleteItemRequest.SerializeToString,
-                response_deserializer=item__messages__pb2.DeleteItemResponse.FromString,
+                '/sims_ims_backend.SimsInventoryInformationSystem/DeleteItem',
+                request_serializer=backend__proto_dot_item__messages__pb2.DeleteItemRequest.SerializeToString,
+                response_deserializer=backend__proto_dot_item__messages__pb2.DeleteItemResponse.FromString,
                 )
 
 
@@ -203,87 +203,87 @@ def add_SimsInventoryInformationSystemServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'CreateUser': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateUser,
-                    request_deserializer=user__messages__pb2.CreateUserRequest.FromString,
-                    response_serializer=user__messages__pb2.CreateUserResponse.SerializeToString,
+                    request_deserializer=backend__proto_dot_user__messages__pb2.CreateUserRequest.FromString,
+                    response_serializer=backend__proto_dot_user__messages__pb2.CreateUserResponse.SerializeToString,
             ),
             'ReadUser': grpc.unary_unary_rpc_method_handler(
                     servicer.ReadUser,
-                    request_deserializer=user__messages__pb2.ReadUserRequest.FromString,
-                    response_serializer=user__messages__pb2.ReadUserResponse.SerializeToString,
+                    request_deserializer=backend__proto_dot_user__messages__pb2.ReadUserRequest.FromString,
+                    response_serializer=backend__proto_dot_user__messages__pb2.ReadUserResponse.SerializeToString,
             ),
             'DeleteUser': grpc.unary_unary_rpc_method_handler(
                     servicer.DeleteUser,
-                    request_deserializer=user__messages__pb2.DeleteUserRequest.FromString,
-                    response_serializer=user__messages__pb2.DeleteUserResponse.SerializeToString,
+                    request_deserializer=backend__proto_dot_user__messages__pb2.DeleteUserRequest.FromString,
+                    response_serializer=backend__proto_dot_user__messages__pb2.DeleteUserResponse.SerializeToString,
             ),
             'CreateShelf': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateShelf,
-                    request_deserializer=shelf__messages__pb2.CreateShelfRequest.FromString,
-                    response_serializer=shelf__messages__pb2.CreateShelfResponse.SerializeToString,
+                    request_deserializer=backend__proto_dot_shelf__messages__pb2.CreateShelfRequest.FromString,
+                    response_serializer=backend__proto_dot_shelf__messages__pb2.CreateShelfResponse.SerializeToString,
             ),
             'ReadShelf': grpc.unary_unary_rpc_method_handler(
                     servicer.ReadShelf,
-                    request_deserializer=shelf__messages__pb2.ReadShelfRequest.FromString,
-                    response_serializer=shelf__messages__pb2.ReadShelfResponse.SerializeToString,
+                    request_deserializer=backend__proto_dot_shelf__messages__pb2.ReadShelfRequest.FromString,
+                    response_serializer=backend__proto_dot_shelf__messages__pb2.ReadShelfResponse.SerializeToString,
             ),
             'UpdateShelf': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateShelf,
-                    request_deserializer=shelf__messages__pb2.UpdateShelfRequest.FromString,
-                    response_serializer=shelf__messages__pb2.UpdateShelfResponse.SerializeToString,
+                    request_deserializer=backend__proto_dot_shelf__messages__pb2.UpdateShelfRequest.FromString,
+                    response_serializer=backend__proto_dot_shelf__messages__pb2.UpdateShelfResponse.SerializeToString,
             ),
             'DeleteShelf': grpc.unary_unary_rpc_method_handler(
                     servicer.DeleteShelf,
-                    request_deserializer=shelf__messages__pb2.DeleteShelfRequest.FromString,
-                    response_serializer=shelf__messages__pb2.DeleteShelfResponse.SerializeToString,
+                    request_deserializer=backend__proto_dot_shelf__messages__pb2.DeleteShelfRequest.FromString,
+                    response_serializer=backend__proto_dot_shelf__messages__pb2.DeleteShelfResponse.SerializeToString,
             ),
             'CreateSlot': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateSlot,
-                    request_deserializer=slot__messages__pb2.CreateSlotRequest.FromString,
-                    response_serializer=slot__messages__pb2.CreateSlotResponse.SerializeToString,
+                    request_deserializer=backend__proto_dot_slot__messages__pb2.CreateSlotRequest.FromString,
+                    response_serializer=backend__proto_dot_slot__messages__pb2.CreateSlotResponse.SerializeToString,
             ),
             'ReadSlot': grpc.unary_unary_rpc_method_handler(
                     servicer.ReadSlot,
-                    request_deserializer=slot__messages__pb2.ReadSlotRequest.FromString,
-                    response_serializer=slot__messages__pb2.ReadSlotResponse.SerializeToString,
+                    request_deserializer=backend__proto_dot_slot__messages__pb2.ReadSlotRequest.FromString,
+                    response_serializer=backend__proto_dot_slot__messages__pb2.ReadSlotResponse.SerializeToString,
             ),
             'UpdateSlot': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateSlot,
-                    request_deserializer=slot__messages__pb2.UpdateSlotRequest.FromString,
-                    response_serializer=slot__messages__pb2.UpdateSlotResponse.SerializeToString,
+                    request_deserializer=backend__proto_dot_slot__messages__pb2.UpdateSlotRequest.FromString,
+                    response_serializer=backend__proto_dot_slot__messages__pb2.UpdateSlotResponse.SerializeToString,
             ),
             'DeleteSlot': grpc.unary_unary_rpc_method_handler(
                     servicer.DeleteSlot,
-                    request_deserializer=slot__messages__pb2.DeleteSlotRequest.FromString,
-                    response_serializer=slot__messages__pb2.DeleteSlotResponse.SerializeToString,
+                    request_deserializer=backend__proto_dot_slot__messages__pb2.DeleteSlotRequest.FromString,
+                    response_serializer=backend__proto_dot_slot__messages__pb2.DeleteSlotResponse.SerializeToString,
             ),
             'CreateSlots': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateSlots,
-                    request_deserializer=slot__messages__pb2.CreateSlotsRequest.FromString,
-                    response_serializer=slot__messages__pb2.CreateSlotsResponse.SerializeToString,
+                    request_deserializer=backend__proto_dot_slot__messages__pb2.CreateSlotsRequest.FromString,
+                    response_serializer=backend__proto_dot_slot__messages__pb2.CreateSlotsResponse.SerializeToString,
             ),
             'CreateItem': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateItem,
-                    request_deserializer=item__messages__pb2.CreateItemRequest.FromString,
-                    response_serializer=item__messages__pb2.CreateItemResponse.SerializeToString,
+                    request_deserializer=backend__proto_dot_item__messages__pb2.CreateItemRequest.FromString,
+                    response_serializer=backend__proto_dot_item__messages__pb2.CreateItemResponse.SerializeToString,
             ),
             'ReadItem': grpc.unary_unary_rpc_method_handler(
                     servicer.ReadItem,
-                    request_deserializer=item__messages__pb2.ReadItemRequest.FromString,
-                    response_serializer=item__messages__pb2.ReadItemResponse.SerializeToString,
+                    request_deserializer=backend__proto_dot_item__messages__pb2.ReadItemRequest.FromString,
+                    response_serializer=backend__proto_dot_item__messages__pb2.ReadItemResponse.SerializeToString,
             ),
             'UpdateItem': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateItem,
-                    request_deserializer=item__messages__pb2.UpdateItemRequest.FromString,
-                    response_serializer=item__messages__pb2.UpdateItemResponse.SerializeToString,
+                    request_deserializer=backend__proto_dot_item__messages__pb2.UpdateItemRequest.FromString,
+                    response_serializer=backend__proto_dot_item__messages__pb2.UpdateItemResponse.SerializeToString,
             ),
             'DeleteItem': grpc.unary_unary_rpc_method_handler(
                     servicer.DeleteItem,
-                    request_deserializer=item__messages__pb2.DeleteItemRequest.FromString,
-                    response_serializer=item__messages__pb2.DeleteItemResponse.SerializeToString,
+                    request_deserializer=backend__proto_dot_item__messages__pb2.DeleteItemRequest.FromString,
+                    response_serializer=backend__proto_dot_item__messages__pb2.DeleteItemResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'SimsIMS.SimsInventoryInformationSystem', rpc_method_handlers)
+            'sims_ims_backend.SimsInventoryInformationSystem', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -302,9 +302,9 @@ class SimsInventoryInformationSystem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsInventoryInformationSystem/CreateUser',
-            user__messages__pb2.CreateUserRequest.SerializeToString,
-            user__messages__pb2.CreateUserResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/CreateUser',
+            backend__proto_dot_user__messages__pb2.CreateUserRequest.SerializeToString,
+            backend__proto_dot_user__messages__pb2.CreateUserResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -319,9 +319,9 @@ class SimsInventoryInformationSystem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsInventoryInformationSystem/ReadUser',
-            user__messages__pb2.ReadUserRequest.SerializeToString,
-            user__messages__pb2.ReadUserResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/ReadUser',
+            backend__proto_dot_user__messages__pb2.ReadUserRequest.SerializeToString,
+            backend__proto_dot_user__messages__pb2.ReadUserResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -336,9 +336,9 @@ class SimsInventoryInformationSystem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsInventoryInformationSystem/DeleteUser',
-            user__messages__pb2.DeleteUserRequest.SerializeToString,
-            user__messages__pb2.DeleteUserResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/DeleteUser',
+            backend__proto_dot_user__messages__pb2.DeleteUserRequest.SerializeToString,
+            backend__proto_dot_user__messages__pb2.DeleteUserResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -353,9 +353,9 @@ class SimsInventoryInformationSystem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsInventoryInformationSystem/CreateShelf',
-            shelf__messages__pb2.CreateShelfRequest.SerializeToString,
-            shelf__messages__pb2.CreateShelfResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/CreateShelf',
+            backend__proto_dot_shelf__messages__pb2.CreateShelfRequest.SerializeToString,
+            backend__proto_dot_shelf__messages__pb2.CreateShelfResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -370,9 +370,9 @@ class SimsInventoryInformationSystem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsInventoryInformationSystem/ReadShelf',
-            shelf__messages__pb2.ReadShelfRequest.SerializeToString,
-            shelf__messages__pb2.ReadShelfResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/ReadShelf',
+            backend__proto_dot_shelf__messages__pb2.ReadShelfRequest.SerializeToString,
+            backend__proto_dot_shelf__messages__pb2.ReadShelfResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -387,9 +387,9 @@ class SimsInventoryInformationSystem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsInventoryInformationSystem/UpdateShelf',
-            shelf__messages__pb2.UpdateShelfRequest.SerializeToString,
-            shelf__messages__pb2.UpdateShelfResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/UpdateShelf',
+            backend__proto_dot_shelf__messages__pb2.UpdateShelfRequest.SerializeToString,
+            backend__proto_dot_shelf__messages__pb2.UpdateShelfResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -404,9 +404,9 @@ class SimsInventoryInformationSystem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsInventoryInformationSystem/DeleteShelf',
-            shelf__messages__pb2.DeleteShelfRequest.SerializeToString,
-            shelf__messages__pb2.DeleteShelfResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/DeleteShelf',
+            backend__proto_dot_shelf__messages__pb2.DeleteShelfRequest.SerializeToString,
+            backend__proto_dot_shelf__messages__pb2.DeleteShelfResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -421,9 +421,9 @@ class SimsInventoryInformationSystem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsInventoryInformationSystem/CreateSlot',
-            slot__messages__pb2.CreateSlotRequest.SerializeToString,
-            slot__messages__pb2.CreateSlotResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/CreateSlot',
+            backend__proto_dot_slot__messages__pb2.CreateSlotRequest.SerializeToString,
+            backend__proto_dot_slot__messages__pb2.CreateSlotResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -438,9 +438,9 @@ class SimsInventoryInformationSystem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsInventoryInformationSystem/ReadSlot',
-            slot__messages__pb2.ReadSlotRequest.SerializeToString,
-            slot__messages__pb2.ReadSlotResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/ReadSlot',
+            backend__proto_dot_slot__messages__pb2.ReadSlotRequest.SerializeToString,
+            backend__proto_dot_slot__messages__pb2.ReadSlotResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -455,9 +455,9 @@ class SimsInventoryInformationSystem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsInventoryInformationSystem/UpdateSlot',
-            slot__messages__pb2.UpdateSlotRequest.SerializeToString,
-            slot__messages__pb2.UpdateSlotResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/UpdateSlot',
+            backend__proto_dot_slot__messages__pb2.UpdateSlotRequest.SerializeToString,
+            backend__proto_dot_slot__messages__pb2.UpdateSlotResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -472,9 +472,9 @@ class SimsInventoryInformationSystem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsInventoryInformationSystem/DeleteSlot',
-            slot__messages__pb2.DeleteSlotRequest.SerializeToString,
-            slot__messages__pb2.DeleteSlotResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/DeleteSlot',
+            backend__proto_dot_slot__messages__pb2.DeleteSlotRequest.SerializeToString,
+            backend__proto_dot_slot__messages__pb2.DeleteSlotResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -489,9 +489,9 @@ class SimsInventoryInformationSystem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsInventoryInformationSystem/CreateSlots',
-            slot__messages__pb2.CreateSlotsRequest.SerializeToString,
-            slot__messages__pb2.CreateSlotsResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/CreateSlots',
+            backend__proto_dot_slot__messages__pb2.CreateSlotsRequest.SerializeToString,
+            backend__proto_dot_slot__messages__pb2.CreateSlotsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -506,9 +506,9 @@ class SimsInventoryInformationSystem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsInventoryInformationSystem/CreateItem',
-            item__messages__pb2.CreateItemRequest.SerializeToString,
-            item__messages__pb2.CreateItemResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/CreateItem',
+            backend__proto_dot_item__messages__pb2.CreateItemRequest.SerializeToString,
+            backend__proto_dot_item__messages__pb2.CreateItemResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -523,9 +523,9 @@ class SimsInventoryInformationSystem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsInventoryInformationSystem/ReadItem',
-            item__messages__pb2.ReadItemRequest.SerializeToString,
-            item__messages__pb2.ReadItemResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/ReadItem',
+            backend__proto_dot_item__messages__pb2.ReadItemRequest.SerializeToString,
+            backend__proto_dot_item__messages__pb2.ReadItemResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -540,9 +540,9 @@ class SimsInventoryInformationSystem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsInventoryInformationSystem/UpdateItem',
-            item__messages__pb2.UpdateItemRequest.SerializeToString,
-            item__messages__pb2.UpdateItemResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/UpdateItem',
+            backend__proto_dot_item__messages__pb2.UpdateItemRequest.SerializeToString,
+            backend__proto_dot_item__messages__pb2.UpdateItemResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -557,8 +557,8 @@ class SimsInventoryInformationSystem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsInventoryInformationSystem/DeleteItem',
-            item__messages__pb2.DeleteItemRequest.SerializeToString,
-            item__messages__pb2.DeleteItemResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/DeleteItem',
+            backend__proto_dot_item__messages__pb2.DeleteItemRequest.SerializeToString,
+            backend__proto_dot_item__messages__pb2.DeleteItemResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
