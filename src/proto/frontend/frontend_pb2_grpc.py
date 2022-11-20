@@ -15,12 +15,12 @@ class SimsFrontendStub(object):
             channel: A grpc.Channel.
         """
         self.CredAuth = channel.unary_unary(
-                '/SimsIMS.SimsFrontend/CredAuth',
+                '/sims_ims_frontend.SimsFrontend/CredAuth',
                 request_serializer=frontend__messages__pb2.LoginRequest.SerializeToString,
                 response_deserializer=frontend__messages__pb2.Token.FromString,
                 )
         self.ClientCmd = channel.unary_unary(
-                '/SimsIMS.SimsFrontend/ClientCmd',
+                '/sims_ims_frontend.SimsFrontend/ClientCmd',
                 request_serializer=frontend__messages__pb2.ClientAction.SerializeToString,
                 response_deserializer=frontend__messages__pb2.ActionApproved.FromString,
                 )
@@ -56,7 +56,7 @@ def add_SimsFrontendServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'SimsIMS.SimsFrontend', rpc_method_handlers)
+            'sims_ims_frontend.SimsFrontend', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -75,7 +75,7 @@ class SimsFrontend(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsFrontend/CredAuth',
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_frontend.SimsFrontend/CredAuth',
             frontend__messages__pb2.LoginRequest.SerializeToString,
             frontend__messages__pb2.Token.FromString,
             options, channel_credentials,
@@ -92,7 +92,7 @@ class SimsFrontend(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SimsIMS.SimsFrontend/ClientCmd',
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_frontend.SimsFrontend/ClientCmd',
             frontend__messages__pb2.ClientAction.SerializeToString,
             frontend__messages__pb2.ActionApproved.FromString,
             options, channel_credentials,

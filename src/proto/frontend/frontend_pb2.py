@@ -14,13 +14,13 @@ _sym_db = _symbol_database.Default()
 import frontend_messages_pb2 as frontend__messages__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0e\x66rontend.proto\x12\x07SimsIMS\x1a\x17\x66rontend_messages.proto2\x82\x01\n\x0cSimsFrontend\x12\x33\n\x08\x43redAuth\x12\x15.SimsIMS.LoginRequest\x1a\x0e.SimsIMS.Token\"\x00\x12=\n\tClientCmd\x12\x15.SimsIMS.ClientAction\x1a\x17.SimsIMS.ActionApproved\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0e\x66rontend.proto\x12\x11sims_ims_frontend\x1a\x17\x66rontend_messages.proto2\xaa\x01\n\x0cSimsFrontend\x12G\n\x08\x43redAuth\x12\x1f.sims_ims_frontend.LoginRequest\x1a\x18.sims_ims_frontend.Token\"\x00\x12Q\n\tClientCmd\x12\x1f.sims_ims_frontend.ClientAction\x1a!.sims_ims_frontend.ActionApproved\"\x00\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'frontend_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _SIMSFRONTEND._serialized_start=53
-  _SIMSFRONTEND._serialized_end=183
+  _SIMSFRONTEND._serialized_start=63
+  _SIMSFRONTEND._serialized_end=233
 # @@protoc_insertion_point(module_scope)
