@@ -1,12 +1,15 @@
 from concurrent import futures
 
 import frontend_proto.frontend_pb2_grpc as frontend_grpc
+import frontend_proto.frontend_messages_pb2 as frontend_messages
 import grpc
 class FrontendServicer(frontend_grpc.SimsFrontendServicer):
     def CredAuth(self, request, context):
-        return super().CredAuth(request, context)
+        print("CredAuth", request.username, request.password)
+        return frontend_messages.Token(token="placeholder")
 
     def ClientCmd(self, request, context):
+        print("ClientCmd")
         return super().ClientCmd(request, context)
 
 
