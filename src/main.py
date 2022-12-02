@@ -113,7 +113,7 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
                 dbTokenTimestamp = tokenInfo[1]
                 tokenLife = time.time() - dbTokenTimestamp
                 if dbToken == request.token and tokenLife < 300:
-                    return frontend_messages.Shelves(shelves=self._itemsMessageGenerator())
+                    return frontend_messages.Items(items=self._itemsMessageGenerator(shelf=request.shelf_id))
                 else:
                     raise Exception("Token expired")
         except sqlite3.Error as e:
@@ -130,14 +130,17 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
         ]   
         return dummyShelf
 
-    def _itemsMessageGenerator(self):
+    def _itemsMessageGenerator(self, shelf=None):
         dummyItem = [
-            frontend_messages.ItemInfo(description='dummy1', object_id='dummy1',price=1),
-            frontend_messages.ItemInfo(description='dummy2', object_id='dummy2',price=2),
-            frontend_messages.ItemInfo(description='dummy3', object_id='dummy3',price=3),
-            frontend_messages.ItemInfo(description='dummy4', object_id='dummy4',price=4)
-        ]   
-        return dummyItem
+            frontend_messages.ItemInfo(description='dummy1', object_id='dummy1',price=1, stock=1),
+            frontend_messages.ItemInfo(description='dummy2', object_id='dummy2',price=2, stock=2),
+            frontend_messages.ItemInfo(description='dummy3', object_id='dummy3',price=3, stock=3),
+            frontend_messages.ItemInfo(description='dummy4', object_id='dummy4',price=4, stock=4)
+        ]
+        if shelf is None:   
+            return dummyItem
+        else:
+            return dummyItem[shelf]
 
     def _listReadGeneratort(self,type):
         pass
