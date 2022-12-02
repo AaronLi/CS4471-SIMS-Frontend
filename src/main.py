@@ -16,6 +16,26 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 class FrontendServicer(frontend_grpc.SimsFrontendServicer):
+    def SignUp(self, request, context):
+        print("Signup",request.username, request.password)
+        b64pwd = b64encode(SHA256.new(request.password.encode('utf-8')).digest())
+        bcrypt_hash = bcrypt(b64pwd,12)
+        try:
+            connect = CredentialDB()
+            cur = connect.cur.execute("""INSERT INTO credential VALUES (?, ?, NULL, NULL)""",("hello",memoryview(bcrypt_hash)))
+            return frontend_messages.ActionApproved()
+        except sqlite3.Error as e:
+            print("Can't connect to db, error %s" % e)
+            error_string = str(e)
+            if "UNIQUE constraint" in error_string and "credential.username" in error_string:
+                context.set_code(grpc.StatusCode.ALREADY_EXISTS)
+                context.set_details("Username exists")
+                return frontend_grpc.Response()
+            else:
+                context.set_code(grpc.StatusCode.INTERNAL)
+                context.set_details("Can't fetch from db")
+                return frontend_grpc.Response()
+    
     def CredAuth(self, request, context):
         print("CredAuth", type(request.username), request.password)
 

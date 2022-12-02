@@ -19,6 +19,11 @@ class SimsFrontendStub(object):
                 request_serializer=frontend__proto_dot_frontend__messages__pb2.LoginRequest.SerializeToString,
                 response_deserializer=frontend__proto_dot_frontend__messages__pb2.Token.FromString,
                 )
+        self.SignUp = channel.unary_unary(
+                '/sims_ims_frontend.SimsFrontend/SignUp',
+                request_serializer=frontend__proto_dot_frontend__messages__pb2.LoginRequest.SerializeToString,
+                response_deserializer=frontend__proto_dot_frontend__messages__pb2.ActionApproved.FromString,
+                )
         self.ClientCmd = channel.unary_unary(
                 '/sims_ims_frontend.SimsFrontend/ClientCmd',
                 request_serializer=frontend__proto_dot_frontend__messages__pb2.ClientAction.SerializeToString,
@@ -35,6 +40,12 @@ class SimsFrontendServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def CredAuth(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SignUp(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -59,6 +70,11 @@ def add_SimsFrontendServicer_to_server(servicer, server):
                     servicer.CredAuth,
                     request_deserializer=frontend__proto_dot_frontend__messages__pb2.LoginRequest.FromString,
                     response_serializer=frontend__proto_dot_frontend__messages__pb2.Token.SerializeToString,
+            ),
+            'SignUp': grpc.unary_unary_rpc_method_handler(
+                    servicer.SignUp,
+                    request_deserializer=frontend__proto_dot_frontend__messages__pb2.LoginRequest.FromString,
+                    response_serializer=frontend__proto_dot_frontend__messages__pb2.ActionApproved.SerializeToString,
             ),
             'ClientCmd': grpc.unary_unary_rpc_method_handler(
                     servicer.ClientCmd,
@@ -94,6 +110,23 @@ class SimsFrontend(object):
         return grpc.experimental.unary_unary(request, target, '/sims_ims_frontend.SimsFrontend/CredAuth',
             frontend__proto_dot_frontend__messages__pb2.LoginRequest.SerializeToString,
             frontend__proto_dot_frontend__messages__pb2.Token.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SignUp(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_frontend.SimsFrontend/SignUp',
+            frontend__proto_dot_frontend__messages__pb2.LoginRequest.SerializeToString,
+            frontend__proto_dot_frontend__messages__pb2.ActionApproved.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

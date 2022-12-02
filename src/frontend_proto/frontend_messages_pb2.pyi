@@ -29,6 +29,16 @@ class GetShelvesRequest(_message.Message):
     user_id: str
     def __init__(self, shelf_id: _Optional[str] = ..., user_id: _Optional[str] = ..., token: _Optional[str] = ...) -> None: ...
 
+class GetSlotRequest(_message.Message):
+    __slots__ = ["slot_num", "token", "user_id"]
+    SLOT_NUM_FIELD_NUMBER: _ClassVar[int]
+    TOKEN_FIELD_NUMBER: _ClassVar[int]
+    USER_ID_FIELD_NUMBER: _ClassVar[int]
+    slot_num: str
+    token: str
+    user_id: str
+    def __init__(self, slot_num: _Optional[str] = ..., user_id: _Optional[str] = ..., token: _Optional[str] = ...) -> None: ...
+
 class Info(_message.Message):
     __slots__ = ["itemInfo", "shelfInfo", "slotInfo"]
     ITEMINFO_FIELD_NUMBER: _ClassVar[int]
@@ -82,6 +92,12 @@ class SlotInfo(_message.Message):
     item_count: int
     slot_num: int
     def __init__(self, slot_num: _Optional[int] = ..., capacity: _Optional[int] = ..., item_count: _Optional[int] = ...) -> None: ...
+
+class Slots(_message.Message):
+    __slots__ = ["shelves"]
+    SHELVES_FIELD_NUMBER: _ClassVar[int]
+    shelves: _containers.RepeatedCompositeFieldContainer[SlotInfo]
+    def __init__(self, shelves: _Optional[_Iterable[_Union[SlotInfo, _Mapping]]] = ...) -> None: ...
 
 class Token(_message.Message):
     __slots__ = ["token"]
