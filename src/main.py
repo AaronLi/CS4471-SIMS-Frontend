@@ -3,6 +3,7 @@ from concurrent import futures
 import frontend_proto.frontend_pb2_grpc as frontend_grpc
 import frontend_proto.frontend_messages_pb2 as frontend_messages
 import grpc
+import time
 import sqlite3
 import logging
 import secrets
@@ -27,7 +28,8 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
                 b64input = b64encode(SHA256.new(request.password).digest)
                 bcrypt_check(b64input, hashedPw)
                 token = secrets.token_urlsafe(16)
-                cur.execute("UPDATE credential SET token = :token WHERE username = :username",{"token":token, "username":request.username})
+                tokenTime = time.time()
+                cur.execute("UPDATE credential SET token = :token,  tokenTime = :tokenTime WHERE username = :username",{"token":token, "tokenTime":tokenTime, "username":request.username})
                 return frontend_messages.Token(token=token)
             
             except ValueError:
