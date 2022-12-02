@@ -121,27 +121,31 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details("Can't fetch from db")
 
-    def _shelvesMessageGenerator(self):
-        dummyShelf = [
-            frontend_messages.ShelfInfo(shelf_id='dummy1',shelf_count=1),
-            frontend_messages.ShelfInfo(shelf_id='dummy2',shelf_count=2),
-            frontend_messages.ShelfInfo(shelf_id='dummy3',shelf_count=3),
-            frontend_messages.ShelfInfo(shelf_id='dummy4',shelf_count=4)
-        ]   
-        return dummyShelf
+    def _shelvesMessageGenerator(self, shelf=None):
+        dummyShelf = {
+            "dummy1": frontend_messages.ShelfInfo(shelf_id='dummy1',shelf_count=1),
+            "dummy2": frontend_messages.ShelfInfo(shelf_id='dummy2',shelf_count=2),
+            "dummy3": frontend_messages.ShelfInfo(shelf_id='dummy3',shelf_count=3),
+            "dummy4": frontend_messages.ShelfInfo(shelf_id='dummy4',shelf_count=4)
+        }   
+        if shelf is None:
+            return dummyShelf.values()
 
     def _itemsMessageGenerator(self, shelf=None):
-        dummyItem = [
-            frontend_messages.ItemInfo(description='dummy1', object_id='dummy1',price=1, stock=1),
-            frontend_messages.ItemInfo(description='dummy2', object_id='dummy2',price=2, stock=2),
-            frontend_messages.ItemInfo(description='dummy3', object_id='dummy3',price=3, stock=3),
-            frontend_messages.ItemInfo(description='dummy4', object_id='dummy4',price=4, stock=4)
-        ]
+        dummyItem = {
+            "dummy1": frontend_messages.ItemInfo(description='dummy1', object_id='dummy1',price=1, stock=1),
+            "dummy2": frontend_messages.ItemInfo(description='dummy2',  object_id='dummy2',price=2, stock=2),
+            "dummy3": frontend_messages.ItemInfo(description='dummy3', object_id='dummy3',price=3, stock=3),
+            "dummy4": frontend_messages.ItemInfo(description='dummy4', object_id='dummy4',price=4, stock=4)
+        }
         if shelf is None:   
-            return dummyItem
+            return dummyItem.values()
         else:
-            return dummyItem[shelf]
-
+            if shelf in dummyItem:
+                return dummyItem.get(shelf)
+            else:
+                raise ("No such shelf")    
+    
     def _listReadGeneratort(self,type):
         pass
 
