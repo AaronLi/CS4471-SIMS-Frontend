@@ -23,6 +23,7 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
         try:
             connect = CredentialDB()
             cur = connect.cur.execute("""INSERT INTO credential VALUES (?, ?, NULL, NULL)""",("hello",memoryview(bcrypt_hash)))
+            connect.conn.commit()
             return frontend_messages.ActionApproved()
         except sqlite3.Error as e:
             print("Can't connect to db, error %s" % e)
@@ -54,10 +55,11 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
                 token = secrets.token_urlsafe(16)
                 tokenTime = time.time()
                 connect.cur.execute("""UPDATE credential SET token = :token,  tokenTime = :tokenTime WHERE username = :username""",{"token":token, "tokenTime":tokenTime, "username":request.username})
+                connect.conn.commit()
                 return frontend_messages.Token(token=token)
             
             except ValueError:
-                print("Incorrect password")
+                print("Incorrect passworßd")
                 context.set_code(grpc.StatusCode.UNAUTHENTICATED)
                 context.set_details('Incorrect password!')
                 return frontend_grpc.Response()
