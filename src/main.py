@@ -17,29 +17,29 @@ logger.setLevel(logging.INFO)
 
 class FrontendServicer(frontend_grpc.SimsFrontendServicer):
     def CredAuth(self, request, context):
-        print("CredAuth", request.username, request.password)
+        print("CredAuth", type(request.username), request.password)
 
         try:
             connect = CredentialDB()
-            cur = connect.query(("SELECT hashedPw WHERE username = :username",{"username":request.username}))
-            hashedPw = cur.fetchone()
-            
+            cur = connect.cur.execute("""SELECT hashedPw FROM credential WHERE username = ?""",((request.username,)))
+            hashedPw = cur.fetchone()[0]
+            inputPwB = request.password.encode('utf-8')
             try:
-                b64input = b64encode(SHA256.new(request.password).digest)
+                b64input = b64encode(SHA256.new(inputPwB).digest())
                 bcrypt_check(b64input, hashedPw)
                 token = secrets.token_urlsafe(16)
                 tokenTime = time.time()
-                cur.execute("UPDATE credential SET token = :token,  tokenTime = :tokenTime WHERE username = :username",{"token":token, "tokenTime":tokenTime, "username":request.username})
+                connect.cur.execute("""UPDATE credential SET token = :token,  tokenTime = :tokenTime WHERE username = :username""",{"token":token, "tokenTime":tokenTime, "username":request.username})
                 return frontend_messages.Token(token=token)
             
             except ValueError:
-                logger.info("Incorrect password")
+                print("Incorrect password")
                 context.set_code(grpc.StatusCode.UNAUTHENTICATED)
                 context.set_details('Incorrect password!')
                 return frontend_grpc.Response()
             
         except sqlite3.Error as e:
-            logger.info("Can't connect to db, error %s" % e)
+            print("Can't connect to db, error %s" % e)
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details("Can't fetch from db")
 
