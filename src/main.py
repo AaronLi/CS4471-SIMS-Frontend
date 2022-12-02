@@ -84,8 +84,9 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
             cur = connect.cur.execute("""SELECT token, tokenTime FROM credential WHERE username = ?""",
                                       ((request.username,)))
             if cur:
-                dbToken = cur.fetchone()[0]
-                dbTokenTimestamp = cur.fetchone()[1]
+                tokenInfo = cur.fetchone()
+                dbToken = tokenInfo[0]
+                dbTokenTimestamp = tokenInfo[1]
                 tokenLife = time.time() - dbTokenTimestamp
                 if dbToken == request.token and tokenLife < 300:
                     return frontend_messages.Shelves(self._messageGenerator)
