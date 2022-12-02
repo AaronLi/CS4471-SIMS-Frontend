@@ -22,7 +22,7 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
         bcrypt_hash = bcrypt(b64pwd,12)
         try:
             connect = CredentialDB()
-            cur = connect.cur.execute("""INSERT INTO credential VALUES (?, ?, NULL, NULL)""",("hello",memoryview(bcrypt_hash)))
+            cur = connect.cur.execute("""INSERT INTO credential VALUES (?, ?, NULL, NULL)""",(request.username,memoryview(bcrypt_hash)))
             connect.conn.commit()
             return frontend_messages.ActionApproved()
         except sqlite3.Error as e:
