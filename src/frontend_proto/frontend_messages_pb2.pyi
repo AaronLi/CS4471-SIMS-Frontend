@@ -18,6 +18,16 @@ class ClientAction(_message.Message):
     user_id: str
     def __init__(self, user_id: _Optional[str] = ..., action: _Optional[str] = ..., info: _Optional[_Union[Info, _Mapping]] = ...) -> None: ...
 
+class GetShelvesRequest(_message.Message):
+    __slots__ = ["shelf_id", "token", "user_id"]
+    SHELF_ID_FIELD_NUMBER: _ClassVar[int]
+    TOKEN_FIELD_NUMBER: _ClassVar[int]
+    USER_ID_FIELD_NUMBER: _ClassVar[int]
+    shelf_id: str
+    token: str
+    user_id: str
+    def __init__(self, shelf_id: _Optional[str] = ..., user_id: _Optional[str] = ..., token: _Optional[str] = ...) -> None: ...
+
 class Info(_message.Message):
     __slots__ = ["itemInfo", "shelfInfo", "slotInfo"]
     ITEMINFO_FIELD_NUMBER: _ClassVar[int]
