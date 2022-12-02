@@ -72,11 +72,6 @@ class SimsInventoryInformationSystemStub(object):
                 request_serializer=backend__proto_dot_slot__messages__pb2.DeleteSlotRequest.SerializeToString,
                 response_deserializer=backend__proto_dot_slot__messages__pb2.DeleteSlotResponse.FromString,
                 )
-        self.CreateSlots = channel.unary_unary(
-                '/sims_ims_backend.SimsInventoryInformationSystem/CreateSlots',
-                request_serializer=backend__proto_dot_slot__messages__pb2.CreateSlotsRequest.SerializeToString,
-                response_deserializer=backend__proto_dot_slot__messages__pb2.CreateSlotsResponse.FromString,
-                )
         self.CreateItem = channel.unary_unary(
                 '/sims_ims_backend.SimsInventoryInformationSystem/CreateItem',
                 request_serializer=backend__proto_dot_item__messages__pb2.CreateItemRequest.SerializeToString,
@@ -168,12 +163,6 @@ class SimsInventoryInformationSystemServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def CreateSlots(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def CreateItem(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -255,11 +244,6 @@ def add_SimsInventoryInformationSystemServicer_to_server(servicer, server):
                     servicer.DeleteSlot,
                     request_deserializer=backend__proto_dot_slot__messages__pb2.DeleteSlotRequest.FromString,
                     response_serializer=backend__proto_dot_slot__messages__pb2.DeleteSlotResponse.SerializeToString,
-            ),
-            'CreateSlots': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreateSlots,
-                    request_deserializer=backend__proto_dot_slot__messages__pb2.CreateSlotsRequest.FromString,
-                    response_serializer=backend__proto_dot_slot__messages__pb2.CreateSlotsResponse.SerializeToString,
             ),
             'CreateItem': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateItem,
@@ -475,23 +459,6 @@ class SimsInventoryInformationSystem(object):
         return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/DeleteSlot',
             backend__proto_dot_slot__messages__pb2.DeleteSlotRequest.SerializeToString,
             backend__proto_dot_slot__messages__pb2.DeleteSlotResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def CreateSlots(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/sims_ims_backend.SimsInventoryInformationSystem/CreateSlots',
-            backend__proto_dot_slot__messages__pb2.CreateSlotsRequest.SerializeToString,
-            backend__proto_dot_slot__messages__pb2.CreateSlotsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

@@ -34,6 +34,11 @@ class SimsFrontendStub(object):
                 request_serializer=frontend__proto_dot_frontend__messages__pb2.GetShelvesRequest.SerializeToString,
                 response_deserializer=frontend__proto_dot_frontend__messages__pb2.Shelves.FromString,
                 )
+        self.GetItems = channel.unary_unary(
+                '/sims_ims_frontend.SimsFrontend/GetItems',
+                request_serializer=frontend__proto_dot_frontend__messages__pb2.GetItemRequest.SerializeToString,
+                response_deserializer=frontend__proto_dot_frontend__messages__pb2.Items.FromString,
+                )
 
 
 class SimsFrontendServicer(object):
@@ -63,6 +68,12 @@ class SimsFrontendServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetItems(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_SimsFrontendServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -85,6 +96,11 @@ def add_SimsFrontendServicer_to_server(servicer, server):
                     servicer.GetShelves,
                     request_deserializer=frontend__proto_dot_frontend__messages__pb2.GetShelvesRequest.FromString,
                     response_serializer=frontend__proto_dot_frontend__messages__pb2.Shelves.SerializeToString,
+            ),
+            'GetItems': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetItems,
+                    request_deserializer=frontend__proto_dot_frontend__messages__pb2.GetItemRequest.FromString,
+                    response_serializer=frontend__proto_dot_frontend__messages__pb2.Items.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -161,5 +177,22 @@ class SimsFrontend(object):
         return grpc.experimental.unary_unary(request, target, '/sims_ims_frontend.SimsFrontend/GetShelves',
             frontend__proto_dot_frontend__messages__pb2.GetShelvesRequest.SerializeToString,
             frontend__proto_dot_frontend__messages__pb2.Shelves.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetItems(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_frontend.SimsFrontend/GetItems',
+            frontend__proto_dot_frontend__messages__pb2.GetItemRequest.SerializeToString,
+            frontend__proto_dot_frontend__messages__pb2.Items.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

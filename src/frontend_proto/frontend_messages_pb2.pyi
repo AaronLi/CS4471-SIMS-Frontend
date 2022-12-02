@@ -19,6 +19,18 @@ class ClientAction(_message.Message):
     user_id: str
     def __init__(self, user_id: _Optional[str] = ..., action: _Optional[str] = ..., info: _Optional[_Union[Info, _Mapping]] = ...) -> None: ...
 
+class GetItemRequest(_message.Message):
+    __slots__ = ["object_id", "shelf_id", "token", "username"]
+    OBJECT_ID_FIELD_NUMBER: _ClassVar[int]
+    SHELF_ID_FIELD_NUMBER: _ClassVar[int]
+    TOKEN_FIELD_NUMBER: _ClassVar[int]
+    USERNAME_FIELD_NUMBER: _ClassVar[int]
+    object_id: str
+    shelf_id: str
+    token: str
+    username: str
+    def __init__(self, object_id: _Optional[str] = ..., shelf_id: _Optional[str] = ..., username: _Optional[str] = ..., token: _Optional[str] = ...) -> None: ...
+
 class GetShelvesRequest(_message.Message):
     __slots__ = ["shelf_id", "token", "username"]
     SHELF_ID_FIELD_NUMBER: _ClassVar[int]
@@ -61,6 +73,12 @@ class ItemInfo(_message.Message):
     stock: int
     def __init__(self, description: _Optional[str] = ..., object_id: _Optional[int] = ..., price: _Optional[int] = ..., stock: _Optional[int] = ...) -> None: ...
 
+class Items(_message.Message):
+    __slots__ = ["items"]
+    ITEMS_FIELD_NUMBER: _ClassVar[int]
+    items: _containers.RepeatedCompositeFieldContainer[ItemInfo]
+    def __init__(self, items: _Optional[_Iterable[_Union[ItemInfo, _Mapping]]] = ...) -> None: ...
+
 class LoginRequest(_message.Message):
     __slots__ = ["password", "username"]
     PASSWORD_FIELD_NUMBER: _ClassVar[int]
@@ -94,10 +112,10 @@ class SlotInfo(_message.Message):
     def __init__(self, slot_num: _Optional[int] = ..., capacity: _Optional[int] = ..., item_count: _Optional[int] = ...) -> None: ...
 
 class Slots(_message.Message):
-    __slots__ = ["shelves"]
-    SHELVES_FIELD_NUMBER: _ClassVar[int]
-    shelves: _containers.RepeatedCompositeFieldContainer[SlotInfo]
-    def __init__(self, shelves: _Optional[_Iterable[_Union[SlotInfo, _Mapping]]] = ...) -> None: ...
+    __slots__ = ["slots"]
+    SLOTS_FIELD_NUMBER: _ClassVar[int]
+    slots: _containers.RepeatedCompositeFieldContainer[SlotInfo]
+    def __init__(self, slots: _Optional[_Iterable[_Union[SlotInfo, _Mapping]]] = ...) -> None: ...
 
 class Token(_message.Message):
     __slots__ = ["token"]

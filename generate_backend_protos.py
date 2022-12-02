@@ -18,5 +18,5 @@ if iutil.find_spec(grpc_tools_id) is None:
 
 print(f'generating grpc files from {input_dir}')
 os.makedirs(output_dir, exist_ok=True)
-subprocess.run(['python', '-m', 'grpc_tools.protoc', f'-Iproto', f'--python_out={output_dir}', f'--pyi_out={output_dir}', f'--grpc_python_out={output_dir}', os.path.join('proto', 'backend_proto', '*.proto')], shell=True)
+print(' '.join(['python', '-m', 'grpc_tools.protoc', f'-Iproto', f'--python_out={output_dir}', f'--pyi_out={output_dir}', f'--grpc_python_out={output_dir}', os.path.join('proto', 'backend_proto', '*.proto')]))
 print(f'generated grpc files in {output_dir}')
