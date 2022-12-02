@@ -22,7 +22,11 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
         try:
             connect = CredentialDB()
             cur = connect.cur.execute("""SELECT hashedPw FROM credential WHERE username = ?""",((request.username,)))
-            hashedPw = cur.fetchone()[0]
+            if cur: hashedPw = cur.fetchone()[0]
+            else:
+                context.set_code(grpc.StatusCode.UNAUTHENTICATED)
+                context.set_details('User not found!')
+                return frontend_grpc.Response()
             inputPwB = request.password.encode('utf-8')
             try:
                 b64input = b64encode(SHA256.new(inputPwB).digest())
@@ -42,6 +46,7 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
             print("Can't connect to db, error %s" % e)
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details("Can't fetch from db")
+            return frontend_grpc.Response()
 
         # return frontend_messages.Token(token="placeholder")
 
