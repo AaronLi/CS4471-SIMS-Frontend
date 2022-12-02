@@ -2,6 +2,10 @@ from concurrent import futures
 
 import frontend_proto.frontend_pb2_grpc as frontend_grpc
 import frontend_proto.frontend_messages_pb2 as frontend_messages
+import backend_proto.iis_pb2_grpc as backend_grpc
+import backend_proto.item_messages_pb2 as item_messages
+import backend_proto.shelf_messages_pb2 as shelf_messages
+import backend_proto.slot_messages_pb2 as slot_messages
 import grpc
 import time
 import sqlite3
@@ -89,7 +93,7 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
                 dbTokenTimestamp = tokenInfo[1]
                 tokenLife = time.time() - dbTokenTimestamp
                 if dbToken == request.token and tokenLife < 300:
-                    return frontend_messages.Shelves(shelves=self._messageGenerator())
+                    return frontend_messages.Shelves(shelves=self._shelvesMessageGenerator())
                 else:
                     raise Exception("Token expired")
         except sqlite3.Error as e:
@@ -97,7 +101,27 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details("Can't fetch from db")
 
-    def _messageGenerator(self):
+    def GetItems(self, request, context):
+        print("Rquest {} {}".format(request.username, request.token))
+        try:
+            connect = CredentialDB()
+            cur = connect.cur.execute("""SELECT token, tokenTime FROM credential WHERE username = ?""",
+                                      ((request.username,)))
+            if cur:
+                tokenInfo = cur.fetchone()
+                dbToken = tokenInfo[0]
+                dbTokenTimestamp = tokenInfo[1]
+                tokenLife = time.time() - dbTokenTimestamp
+                if dbToken == request.token and tokenLife < 300:
+                    return frontend_messages.Shelves(shelves=self._itemsMessageGenerator())
+                else:
+                    raise Exception("Token expired")
+        except sqlite3.Error as e:
+            print("Can't connect to db, error %s" % e)
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details("Can't fetch from db")
+
+    def _shelvesMessageGenerator(self):
         dummyShelf = [
             frontend_messages.ShelfInfo(shelf_id='dummy1',shelf_count=1),
             frontend_messages.ShelfInfo(shelf_id='dummy2',shelf_count=2),
@@ -105,6 +129,18 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
             frontend_messages.ShelfInfo(shelf_id='dummy4',shelf_count=4)
         ]   
         return dummyShelf
+
+    def _itemsMessageGenerator(self):
+        dummyItem = [
+            frontend_messages.ItemInfo(description='dummy1', object_id='dummy1',price=1),
+            frontend_messages.ItemInfo(description='dummy2', object_id='dummy2',price=2),
+            frontend_messages.ItemInfo(description='dummy3', object_id='dummy3',price=3),
+            frontend_messages.ItemInfo(description='dummy4', object_id='dummy4',price=4)
+        ]   
+        return dummyItem
+
+    def _listReadGeneratort(self,type):
+        pass
 
 
 if __name__ == '__main__':
