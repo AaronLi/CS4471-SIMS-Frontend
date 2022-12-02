@@ -89,7 +89,7 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
                 dbTokenTimestamp = tokenInfo[1]
                 tokenLife = time.time() - dbTokenTimestamp
                 if dbToken == request.token and tokenLife < 300:
-                    return frontend_messages.Shelves(self._messageGenerator)
+                    return frontend_messages.Shelves(shelves=self._messageGenerator())
                 else:
                     raise Exception("Token expired")
         except sqlite3.Error as e:
