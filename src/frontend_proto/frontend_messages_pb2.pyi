@@ -62,16 +62,14 @@ class Info(_message.Message):
     def __init__(self, shelfInfo: _Optional[_Union[ShelfInfo, _Mapping]] = ..., itemInfo: _Optional[_Union[ItemInfo, _Mapping]] = ..., slotInfo: _Optional[_Union[SlotInfo, _Mapping]] = ...) -> None: ...
 
 class ItemInfo(_message.Message):
-    __slots__ = ["description", "object_id", "price", "stock"]
+    __slots__ = ["description", "price", "stock"]
     DESCRIPTION_FIELD_NUMBER: _ClassVar[int]
-    OBJECT_ID_FIELD_NUMBER: _ClassVar[int]
     PRICE_FIELD_NUMBER: _ClassVar[int]
     STOCK_FIELD_NUMBER: _ClassVar[int]
     description: str
-    object_id: int
     price: int
     stock: int
-    def __init__(self, description: _Optional[str] = ..., object_id: _Optional[int] = ..., price: _Optional[int] = ..., stock: _Optional[int] = ...) -> None: ...
+    def __init__(self, description: _Optional[str] = ..., price: _Optional[int] = ..., stock: _Optional[int] = ...) -> None: ...
 
 class Items(_message.Message):
     __slots__ = ["items"]
