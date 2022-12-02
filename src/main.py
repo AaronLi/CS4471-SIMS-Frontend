@@ -20,7 +20,7 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
 
         try:
             connect = CredentialDB()
-            cur = connect.query(("SELECT username WHERE username = :username",{"username":request.username}))
+            cur = connect.query(("SELECT hashedPw WHERE username = :username",{"username":request.username}))
             hashedPw = cur.fetchone()
             
             try:
