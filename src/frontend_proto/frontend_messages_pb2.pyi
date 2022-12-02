@@ -20,24 +20,24 @@ class ClientAction(_message.Message):
     def __init__(self, user_id: _Optional[str] = ..., action: _Optional[str] = ..., info: _Optional[_Union[Info, _Mapping]] = ...) -> None: ...
 
 class GetShelvesRequest(_message.Message):
-    __slots__ = ["shelf_id", "token", "user_id"]
+    __slots__ = ["shelf_id", "token", "username"]
     SHELF_ID_FIELD_NUMBER: _ClassVar[int]
     TOKEN_FIELD_NUMBER: _ClassVar[int]
-    USER_ID_FIELD_NUMBER: _ClassVar[int]
+    USERNAME_FIELD_NUMBER: _ClassVar[int]
     shelf_id: str
     token: str
-    user_id: str
-    def __init__(self, shelf_id: _Optional[str] = ..., user_id: _Optional[str] = ..., token: _Optional[str] = ...) -> None: ...
+    username: str
+    def __init__(self, shelf_id: _Optional[str] = ..., username: _Optional[str] = ..., token: _Optional[str] = ...) -> None: ...
 
 class GetSlotRequest(_message.Message):
-    __slots__ = ["slot_num", "token", "user_id"]
+    __slots__ = ["slot_num", "token", "username"]
     SLOT_NUM_FIELD_NUMBER: _ClassVar[int]
     TOKEN_FIELD_NUMBER: _ClassVar[int]
-    USER_ID_FIELD_NUMBER: _ClassVar[int]
+    USERNAME_FIELD_NUMBER: _ClassVar[int]
     slot_num: str
     token: str
-    user_id: str
-    def __init__(self, slot_num: _Optional[str] = ..., user_id: _Optional[str] = ..., token: _Optional[str] = ...) -> None: ...
+    username: str
+    def __init__(self, slot_num: _Optional[str] = ..., username: _Optional[str] = ..., token: _Optional[str] = ...) -> None: ...
 
 class Info(_message.Message):
     __slots__ = ["itemInfo", "shelfInfo", "slotInfo"]
