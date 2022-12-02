@@ -24,10 +24,10 @@ class SimsFrontendStub(object):
                 request_serializer=frontend__proto_dot_frontend__messages__pb2.ClientAction.SerializeToString,
                 response_deserializer=frontend__proto_dot_frontend__messages__pb2.ActionApproved.FromString,
                 )
-        self.GetShelves = channel.unary_stream(
+        self.GetShelves = channel.unary_unary(
                 '/sims_ims_frontend.SimsFrontend/GetShelves',
                 request_serializer=frontend__proto_dot_frontend__messages__pb2.GetShelvesRequest.SerializeToString,
-                response_deserializer=frontend__proto_dot_frontend__messages__pb2.ShelfInfo.FromString,
+                response_deserializer=frontend__proto_dot_frontend__messages__pb2.Shelves.FromString,
                 )
 
 
@@ -65,10 +65,10 @@ def add_SimsFrontendServicer_to_server(servicer, server):
                     request_deserializer=frontend__proto_dot_frontend__messages__pb2.ClientAction.FromString,
                     response_serializer=frontend__proto_dot_frontend__messages__pb2.ActionApproved.SerializeToString,
             ),
-            'GetShelves': grpc.unary_stream_rpc_method_handler(
+            'GetShelves': grpc.unary_unary_rpc_method_handler(
                     servicer.GetShelves,
                     request_deserializer=frontend__proto_dot_frontend__messages__pb2.GetShelvesRequest.FromString,
-                    response_serializer=frontend__proto_dot_frontend__messages__pb2.ShelfInfo.SerializeToString,
+                    response_serializer=frontend__proto_dot_frontend__messages__pb2.Shelves.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -125,8 +125,8 @@ class SimsFrontend(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/sims_ims_frontend.SimsFrontend/GetShelves',
+        return grpc.experimental.unary_unary(request, target, '/sims_ims_frontend.SimsFrontend/GetShelves',
             frontend__proto_dot_frontend__messages__pb2.GetShelvesRequest.SerializeToString,
-            frontend__proto_dot_frontend__messages__pb2.ShelfInfo.FromString,
+            frontend__proto_dot_frontend__messages__pb2.Shelves.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -1,6 +1,7 @@
+from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
-from typing import ClassVar as _ClassVar, Mapping as _Mapping, Optional as _Optional, Union as _Union
+from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Mapping, Optional as _Optional, Union as _Union
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
@@ -65,6 +66,12 @@ class ShelfInfo(_message.Message):
     shelf_count: int
     shelf_id: str
     def __init__(self, shelf_id: _Optional[str] = ..., shelf_count: _Optional[int] = ...) -> None: ...
+
+class Shelves(_message.Message):
+    __slots__ = ["shelves"]
+    SHELVES_FIELD_NUMBER: _ClassVar[int]
+    shelves: _containers.RepeatedCompositeFieldContainer[ShelfInfo]
+    def __init__(self, shelves: _Optional[_Iterable[_Union[ShelfInfo, _Mapping]]] = ...) -> None: ...
 
 class SlotInfo(_message.Message):
     __slots__ = ["capacity", "item_count", "slot_num"]

@@ -66,7 +66,7 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
                 dbTokenTimestamp = cur.fetchone()[1]
                 tokenLife = time.time() - dbTokenTimestamp
                 if dbToken == request.token and tokenLife < 300:
-                    return self._messageGenerator()
+                    return frontend_messages.Shelves(self._messageGenerator)
                 else:
                     raise Exception("Token expired")
         except sqlite3.Error as e:
@@ -81,8 +81,7 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
             frontend_messages.ShelfInfo(shelf_id='dummy3',shelf_count=3),
             frontend_messages.ShelfInfo(shelf_id='dummy4',shelf_count=4)
         ]   
-        for i in dummyShelf:
-            yield i
+        return dummyShelf
 
 
 if __name__ == '__main__':
