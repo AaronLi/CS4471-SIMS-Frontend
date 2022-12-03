@@ -20,16 +20,14 @@ class ClientAction(_message.Message):
     def __init__(self, user_id: _Optional[str] = ..., action: _Optional[str] = ..., info: _Optional[_Union[Info, _Mapping]] = ...) -> None: ...
 
 class GetItemRequest(_message.Message):
-    __slots__ = ["object_id", "shelf_id", "token", "username"]
-    OBJECT_ID_FIELD_NUMBER: _ClassVar[int]
+    __slots__ = ["shelf_id", "token", "username"]
     SHELF_ID_FIELD_NUMBER: _ClassVar[int]
     TOKEN_FIELD_NUMBER: _ClassVar[int]
     USERNAME_FIELD_NUMBER: _ClassVar[int]
-    object_id: str
     shelf_id: str
     token: str
     username: str
-    def __init__(self, object_id: _Optional[str] = ..., shelf_id: _Optional[str] = ..., username: _Optional[str] = ..., token: _Optional[str] = ...) -> None: ...
+    def __init__(self, shelf_id: _Optional[str] = ..., username: _Optional[str] = ..., token: _Optional[str] = ...) -> None: ...
 
 class GetShelvesRequest(_message.Message):
     __slots__ = ["shelf_id", "token", "username"]
@@ -62,14 +60,18 @@ class Info(_message.Message):
     def __init__(self, shelfInfo: _Optional[_Union[ShelfInfo, _Mapping]] = ..., itemInfo: _Optional[_Union[ItemInfo, _Mapping]] = ..., slotInfo: _Optional[_Union[SlotInfo, _Mapping]] = ...) -> None: ...
 
 class ItemInfo(_message.Message):
-    __slots__ = ["description", "price", "stock"]
+    __slots__ = ["description", "object_id", "price", "shelf_id", "stock"]
     DESCRIPTION_FIELD_NUMBER: _ClassVar[int]
+    OBJECT_ID_FIELD_NUMBER: _ClassVar[int]
     PRICE_FIELD_NUMBER: _ClassVar[int]
+    SHELF_ID_FIELD_NUMBER: _ClassVar[int]
     STOCK_FIELD_NUMBER: _ClassVar[int]
     description: str
+    object_id: str
     price: int
+    shelf_id: str
     stock: int
-    def __init__(self, description: _Optional[str] = ..., price: _Optional[int] = ..., stock: _Optional[int] = ...) -> None: ...
+    def __init__(self, description: _Optional[str] = ..., object_id: _Optional[str] = ..., shelf_id: _Optional[str] = ..., price: _Optional[int] = ..., stock: _Optional[int] = ...) -> None: ...
 
 class Items(_message.Message):
     __slots__ = ["items"]
