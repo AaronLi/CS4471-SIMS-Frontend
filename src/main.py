@@ -143,7 +143,7 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
             "dummy3": frontend_messages.ItemInfo(description='dummy3', object_id='dummy3',price=3, stock=3),
             "dummy4": frontend_messages.ItemInfo(description='dummy4', object_id='dummy4',price=4, stock=4)
         }
-        if shelf is None:   
+        if shelf is "":   
             return dummyItem.values()
         else:
             if shelf in dummyItem:
