@@ -77,9 +77,29 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
         # return frontend_messages.Token(token="placeholder")
 
     def ClientCmd(self, request, context):
-
-
         return super().ClientCmd(request, context)
+
+    def CreateShelf(self, request, context):
+        print("Rquest {} {}".format(request.username, request.token))
+        try:
+            connect = CredentialDB()
+            cur = connect.cur.execute("""SELECT token, tokenTime FROM credential WHERE username = ?""",
+                                      ((request.username,)))
+            if cur:
+                tokenInfo = cur.fetchone()
+                dbToken = tokenInfo[0]
+                dbTokenTimestamp = tokenInfo[1]
+                tokenLife = time.time() - dbTokenTimestamp
+                if dbToken == request.token and tokenLife < 300:
+                    print(request.shelfinfo)
+                    return frontend_messages.ActionApproved()
+                else:
+                    raise Exception("Token expired")
+        except sqlite3.Error as e:
+            print("Can't connect to db, error %s" % e)
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details("Can't fetch from db")
+
 
     def GetShelves(self, request, context):
         print("Rquest {} {}".format(request.username, request.token))
@@ -157,7 +177,9 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
 
 if __name__ == '__main__':
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=4))
+    # channel = grpc.insecure_channel('localhost:50052')
     frontend_grpc.add_SimsFrontendServicer_to_server(FrontendServicer(), server)
+    # stub = backend_grpc.SimsInventoryInformationSystemStub(channel)
     server.add_insecure_port('[::]:50051')
     server.start()
     print("Running")

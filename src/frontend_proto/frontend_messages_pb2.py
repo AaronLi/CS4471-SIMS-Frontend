@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n&frontend_proto/frontend_messages.proto\x12\x11sims_ims_frontend\"2\n\x0cLoginRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x16\n\x05Token\x12\r\n\x05token\x18\x01 \x01(\t\"V\n\x0c\x43lientAction\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x02 \x01(\t\x12%\n\x04info\x18\x03 \x01(\x0b\x32\x17.sims_ims_frontend.Info\"\x10\n\x0e\x41\x63tionApproved\"b\n\x08ItemInfo\x12\x13\n\x0b\x64\x65scription\x18\x01 \x01(\t\x12\x11\n\tobject_id\x18\x02 \x01(\r\x12\x10\n\x08shelf_id\x18\x03 \x01(\t\x12\r\n\x05price\x18\x04 \x01(\r\x12\r\n\x05stock\x18\x05 \x01(\r\"2\n\tShelfInfo\x12\x10\n\x08shelf_id\x18\x01 \x01(\t\x12\x13\n\x0bshelf_count\x18\x02 \x01(\r\"B\n\x08SlotInfo\x12\x10\n\x08slot_num\x18\x01 \x01(\r\x12\x10\n\x08\x63\x61pacity\x18\x02 \x01(\r\x12\x12\n\nitem_count\x18\x03 \x01(\r\"\x95\x01\n\x04Info\x12/\n\tshelfInfo\x18\x01 \x01(\x0b\x32\x1c.sims_ims_frontend.ShelfInfo\x12-\n\x08itemInfo\x18\x02 \x01(\x0b\x32\x1b.sims_ims_frontend.ItemInfo\x12-\n\x08slotInfo\x18\x03 \x01(\x0b\x32\x1b.sims_ims_frontend.SlotInfo\"X\n\x11GetShelvesRequest\x12\x15\n\x08shelf_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x10\n\x08username\x18\x02 \x01(\t\x12\r\n\x05token\x18\x03 \x01(\tB\x0b\n\t_shelf_id\"U\n\x0eGetSlotRequest\x12\x15\n\x08slot_num\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x10\n\x08username\x18\x02 \x01(\t\x12\r\n\x05token\x18\x03 \x01(\tB\x0b\n\t_slot_num\"U\n\x0eGetItemRequest\x12\x15\n\x08shelf_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x10\n\x08username\x18\x02 \x01(\t\x12\r\n\x05token\x18\x03 \x01(\tB\x0b\n\t_shelf_id\"3\n\x05Items\x12*\n\x05items\x18\x01 \x03(\x0b\x32\x1b.sims_ims_frontend.ItemInfo\"3\n\x05Slots\x12*\n\x05slots\x18\x01 \x03(\x0b\x32\x1b.sims_ims_frontend.SlotInfo\"8\n\x07Shelves\x12-\n\x07shelves\x18\x01 \x03(\x0b\x32\x1c.sims_ims_frontend.ShelfInfob\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n&frontend_proto/frontend_messages.proto\x12\x11sims_ims_frontend\"2\n\x0cLoginRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x16\n\x05Token\x12\r\n\x05token\x18\x01 \x01(\t\"V\n\x0c\x43lientAction\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x02 \x01(\t\x12%\n\x04info\x18\x03 \x01(\x0b\x32\x17.sims_ims_frontend.Info\"\x10\n\x0e\x41\x63tionApproved\"b\n\x08ItemInfo\x12\x13\n\x0b\x64\x65scription\x18\x01 \x01(\t\x12\x11\n\tobject_id\x18\x02 \x01(\r\x12\x10\n\x08shelf_id\x18\x03 \x01(\t\x12\r\n\x05price\x18\x04 \x01(\r\x12\r\n\x05stock\x18\x05 \x01(\r\"2\n\tShelfInfo\x12\x10\n\x08shelf_id\x18\x01 \x01(\t\x12\x13\n\x0bshelf_count\x18\x02 \x01(\r\"B\n\x08SlotInfo\x12\x10\n\x08slot_num\x18\x01 \x01(\r\x12\x10\n\x08\x63\x61pacity\x18\x02 \x01(\r\x12\x12\n\nitem_count\x18\x03 \x01(\r\"\x95\x01\n\x04Info\x12/\n\tshelfInfo\x18\x01 \x01(\x0b\x32\x1c.sims_ims_frontend.ShelfInfo\x12-\n\x08itemInfo\x18\x02 \x01(\x0b\x32\x1b.sims_ims_frontend.ItemInfo\x12-\n\x08slotInfo\x18\x03 \x01(\x0b\x32\x1b.sims_ims_frontend.SlotInfo\"X\n\x11GetShelvesRequest\x12\x15\n\x08shelf_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x10\n\x08username\x18\x02 \x01(\t\x12\r\n\x05token\x18\x03 \x01(\tB\x0b\n\t_shelf_id\"U\n\x0eGetSlotRequest\x12\x15\n\x08slot_num\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x10\n\x08username\x18\x02 \x01(\t\x12\r\n\x05token\x18\x03 \x01(\tB\x0b\n\t_slot_num\"V\n\x0fGetItemsRequest\x12\x15\n\x08shelf_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x10\n\x08username\x18\x02 \x01(\t\x12\r\n\x05token\x18\x03 \x01(\tB\x0b\n\t_shelf_id\"A\n\x0eGetItemRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\r\n\x05token\x18\x02 \x01(\t\x12\x0e\n\x06itemID\x18\x03 \x01(\r\"f\n\x12\x43reateShelfRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\r\n\x05token\x18\x02 \x01(\t\x12/\n\tshelfinfo\x18\x03 \x01(\x0b\x32\x1c.sims_ims_frontend.ShelfInfo\"3\n\x05Items\x12*\n\x05items\x18\x01 \x03(\x0b\x32\x1b.sims_ims_frontend.ItemInfo\"3\n\x05Slots\x12*\n\x05slots\x18\x01 \x03(\x0b\x32\x1b.sims_ims_frontend.SlotInfo\"8\n\x07Shelves\x12-\n\x07shelves\x18\x01 \x03(\x0b\x32\x1c.sims_ims_frontend.ShelfInfob\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'frontend_proto.frontend_messages_pb2', globals())
@@ -40,12 +40,16 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _GETSHELVESREQUEST._serialized_end=703
   _GETSLOTREQUEST._serialized_start=705
   _GETSLOTREQUEST._serialized_end=790
-  _GETITEMREQUEST._serialized_start=792
-  _GETITEMREQUEST._serialized_end=877
-  _ITEMS._serialized_start=879
-  _ITEMS._serialized_end=930
-  _SLOTS._serialized_start=932
-  _SLOTS._serialized_end=983
-  _SHELVES._serialized_start=985
-  _SHELVES._serialized_end=1041
+  _GETITEMSREQUEST._serialized_start=792
+  _GETITEMSREQUEST._serialized_end=878
+  _GETITEMREQUEST._serialized_start=880
+  _GETITEMREQUEST._serialized_end=945
+  _CREATESHELFREQUEST._serialized_start=947
+  _CREATESHELFREQUEST._serialized_end=1049
+  _ITEMS._serialized_start=1051
+  _ITEMS._serialized_end=1102
+  _SLOTS._serialized_start=1104
+  _SLOTS._serialized_end=1155
+  _SHELVES._serialized_start=1157
+  _SHELVES._serialized_end=1213
 # @@protoc_insertion_point(module_scope)
