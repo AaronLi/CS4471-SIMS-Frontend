@@ -67,11 +67,11 @@ class ItemInfo(_message.Message):
     SHELF_ID_FIELD_NUMBER: _ClassVar[int]
     STOCK_FIELD_NUMBER: _ClassVar[int]
     description: str
-    object_id: str
+    object_id: int
     price: int
     shelf_id: str
     stock: int
-    def __init__(self, description: _Optional[str] = ..., object_id: _Optional[str] = ..., shelf_id: _Optional[str] = ..., price: _Optional[int] = ..., stock: _Optional[int] = ...) -> None: ...
+    def __init__(self, description: _Optional[str] = ..., object_id: _Optional[int] = ..., shelf_id: _Optional[str] = ..., price: _Optional[int] = ..., stock: _Optional[int] = ...) -> None: ...
 
 class Items(_message.Message):
     __slots__ = ["items"]
