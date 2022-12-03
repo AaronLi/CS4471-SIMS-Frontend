@@ -152,7 +152,7 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
             return dummyShelf.values()
         else:
             if shelf in dummyShelf:
-                return dummyShelf.get(shelf)
+                return [dummyShelf.get(shelf)]
             else:
                 raise Exception("No such shelf")   
 
@@ -177,9 +177,9 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
 
 if __name__ == '__main__':
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=4))
-    # channel = grpc.insecure_channel('localhost:50052')
+    channel = grpc.insecure_channel('localhost:50052')
     frontend_grpc.add_SimsFrontendServicer_to_server(FrontendServicer(), server)
-    # stub = backend_grpc.SimsInventoryInformationSystemStub(channel)
+    stub = backend_grpc.SimsInventoryInformationSystemStub(channel)
     server.add_insecure_port('[::]:50051')
     server.start()
     print("Running")
