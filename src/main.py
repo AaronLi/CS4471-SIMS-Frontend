@@ -130,6 +130,11 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
         }   
         if shelf is None:
             return dummyShelf.values()
+        else:
+            if shelf in dummyShelf:
+                return dummyShelf.get(shelf)
+            else:
+                raise Exception("No such shelf")   
 
     def _itemsMessageGenerator(self, shelf=None):
         dummyItem = {
@@ -144,7 +149,7 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
             if shelf in dummyItem:
                 return dummyItem.get(shelf)
             else:
-                raise ("No such shelf")    
+                raise Exception("No such shelf")    
     
     def _listReadGeneratort(self,type):
         pass
