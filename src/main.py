@@ -95,7 +95,9 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
         print("Rquest {} {}".format(request.username, request.token))
         try:
             self.authenticate_user(request.username, request.token)
-            return frontend_messages.Shelves(shelves=self._shelvesMessageGenerator(shelf=request.shelf_id))
+            backend_shelves: List[shelf_messages.ShelfInfo] = stub.ReadShelf(shelf_messages.ReadShelfRequest(user_id=request.username)).info
+            response = [frontend_messages.ShelfInfo(shelf_id=shelf.shelf_id, shelf_count=shelf.shelf_count) for shelf in backend_shelves]
+            return frontend_messages.Shelves(response)
         except sqlite3.Error as e:
             print("Can't connect to db, error %s" % e)
             context.set_code(grpc.StatusCode.INTERNAL)

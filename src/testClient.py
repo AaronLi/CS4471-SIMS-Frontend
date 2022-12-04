@@ -23,6 +23,15 @@ def testGetItem(stub):
     backend_response = stub.ReadItem(item_messages.ReadItemRequest(user_id="usertest",shelf_id="shelf1"))
     print(backend_response)
 
+def testGetShelf(stub):
+    backend_response = stub.ReadShelf(shelf_messages.ReadShelfRequest(user_id="usertest"))
+    print(backend_response)
+
+def testInsertShelf(stub):
+    info = shelf_messages.ShelfInfo(shelf_id="shelf2",shelf_count=10)
+    backend_response = stub.CreateShelf(shelf_messages.CreateShelfRequest(user_id="usertest",info=info))
+    print(backend_response)
+
 
 if __name__ == '__main__':
     # server = grpc.server(futures.ThreadPoolExecutor(max_workers=4))
@@ -30,6 +39,8 @@ if __name__ == '__main__':
     # frontend_grpc.add_SimsFrontendServicer_to_server(FrontendServicer(), server)
     stub = backend_grpc.SimsInventoryInformationSystemStub(channel)
     testGetItem(stub)
+    testGetShelf(stub)
+    # testInsertShelf(stub)
     # server.add_insecure_port('[::]:50051')
     # server.start()
     # print("Running")
