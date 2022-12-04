@@ -32,14 +32,20 @@ def testInsertShelf(stub):
     backend_response = stub.CreateShelf(shelf_messages.CreateShelfRequest(user_id="usertest",info=info))
     print(backend_response)
 
+def testInsertItem(stub):
+    info = item_messages.ItemInfo(description="testing item",object_id=7777,shelf_id="shelf1",price=10.55,stock=15)
+    backend_response = stub.CreateItem(item_messages.CreateItemRequest(user_id="usertest",info=info))
+    print(backend_response)
+
+
 
 if __name__ == '__main__':
     # server = grpc.server(futures.ThreadPoolExecutor(max_workers=4))
     channel = grpc.insecure_channel('localhost:50052')
     # frontend_grpc.add_SimsFrontendServicer_to_server(FrontendServicer(), server)
     stub = backend_grpc.SimsInventoryInformationSystemStub(channel)
-    testGetItem(stub)
-    testGetShelf(stub)
+    # testGetItem(stub)
+    testInsertItem(stub)
     # testInsertShelf(stub)
     # server.add_insecure_port('[::]:50051')
     # server.start()

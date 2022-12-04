@@ -6,20 +6,20 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class CreateItemRequest(_message.Message):
-    __slots__ = ["info", "shelf_id", "slot_number", "user_id"]
+    __slots__ = ["info", "user_id"]
     INFO_FIELD_NUMBER: _ClassVar[int]
-    SHELF_ID_FIELD_NUMBER: _ClassVar[int]
-    SLOT_NUMBER_FIELD_NUMBER: _ClassVar[int]
     USER_ID_FIELD_NUMBER: _ClassVar[int]
     info: ItemInfo
-    shelf_id: str
-    slot_number: int
     user_id: str
-    def __init__(self, user_id: _Optional[str] = ..., shelf_id: _Optional[str] = ..., slot_number: _Optional[int] = ..., info: _Optional[_Union[ItemInfo, _Mapping]] = ...) -> None: ...
+    def __init__(self, user_id: _Optional[str] = ..., info: _Optional[_Union[ItemInfo, _Mapping]] = ...) -> None: ...
 
 class CreateItemResponse(_message.Message):
-    __slots__ = []
-    def __init__(self) -> None: ...
+    __slots__ = ["shelf_id", "slot"]
+    SHELF_ID_FIELD_NUMBER: _ClassVar[int]
+    SLOT_FIELD_NUMBER: _ClassVar[int]
+    shelf_id: str
+    slot: int
+    def __init__(self, shelf_id: _Optional[str] = ..., slot: _Optional[int] = ...) -> None: ...
 
 class DeleteItemRequest(_message.Message):
     __slots__ = ["item_id", "user_id"]
