@@ -1,7 +1,12 @@
 from concurrent import futures
+from typing import List
 
 import frontend_proto.frontend_pb2_grpc as frontend_grpc
 import frontend_proto.frontend_messages_pb2 as frontend_messages
+import backend_proto.iis_pb2_grpc as backend_grpc
+import backend_proto.item_messages_pb2 as item_messages
+import backend_proto.shelf_messages_pb2 as shelf_messages
+import backend_proto.slot_messages_pb2 as slot_messages
 import grpc
 import time
 import sqlite3
@@ -22,7 +27,7 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
         bcrypt_hash = bcrypt(b64pwd,12)
         try:
             connect = CredentialDB()
-            cur = connect.cur.execute("""INSERT INTO credential VALUES (?, ?, NULL, NULL)""",("hello",memoryview(bcrypt_hash)))
+            cur = connect.cur.execute("""INSERT INTO credential VALUES (?, ?, NULL, NULL)""",(request.username,memoryview(bcrypt_hash)))
             connect.conn.commit()
             return frontend_messages.ActionApproved()
         except sqlite3.Error as e:
@@ -73,42 +78,109 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
         # return frontend_messages.Token(token="placeholder")
 
     def ClientCmd(self, request, context):
-
-
         return super().ClientCmd(request, context)
 
-    def GetShelves(self, request, context):
+    def CreateShelf(self, request: frontend_messages.CreateShelfRequest, context):
         print("Rquest {} {}".format(request.username, request.token))
         try:
-            connect = CredentialDB()
-            cur = connect.cur.execute("""SELECT token, tokenTime FROM credential WHERE username = ?""",
-                                      ((request.username,)))
-            if cur:
-                dbToken = cur.fetchone()[0]
-                dbTokenTimestamp = cur.fetchone()[1]
-                tokenLife = time.time() - dbTokenTimestamp
-                if dbToken == request.token and tokenLife < 300:
-                    return frontend_messages.Shelves(self._messageGenerator)
-                else:
-                    raise Exception("Token expired")
+            self.authenticate_user(request.username, request.token)
+            stub.CreateShelf(shelf_messages.CreateShelfRequest(user_id=request.username, info=shelf_messages.ShelfInfo(shelf_id=request.shelfinfo.shelf_id, shelf_count=request.shelfinfo.shelf_count)))
+            return frontend_messages.ActionApproved()
         except sqlite3.Error as e:
             print("Can't connect to db, error %s" % e)
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details("Can't fetch from db")
 
-    def _messageGenerator(self):
-        dummyShelf = [
-            frontend_messages.ShelfInfo(shelf_id='dummy1',shelf_count=1),
-            frontend_messages.ShelfInfo(shelf_id='dummy2',shelf_count=2),
-            frontend_messages.ShelfInfo(shelf_id='dummy3',shelf_count=3),
-            frontend_messages.ShelfInfo(shelf_id='dummy4',shelf_count=4)
-        ]   
-        return dummyShelf
+
+    def GetShelves(self, request, context):
+        print("Request {} {}".format(request.username, request.token))
+        try:
+            self.authenticate_user(request.username, request.token)
+            backend_shelves: List[shelf_messages.ShelfInfo] = stub.ReadShelf(shelf_messages.ReadShelfRequest(user_id=request.username)).info
+            response = [frontend_messages.ShelfInfo(shelf_id=shelf.shelf_id, shelf_count=shelf.shelf_count) for shelf in backend_shelves]
+            return frontend_messages.Shelves(shelves=response)
+        except sqlite3.Error as e:
+            print("Can't connect to db, error %s" % e)
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details("Can't fetch from db")
+
+    def GetItems(self, request, context):
+        print("Rquest {} {}".format(request.username, request.token))
+        try:
+            self.authenticate_user(request.username, request.token)
+            backend_items: List[item_messages.ItemInfo] = stub.ReadItem(item_messages.ReadItemRequest(user_id=request.username,shelf_id=request.shelf_id)).info
+            response = [frontend_messages.ItemInfo(description=item.description, object_id=item.object_id, shelf_id=item.shelf_id, price=item.price, stock=item.stock) for item in backend_items]
+            return frontend_messages.Items(items=response)
+        except sqlite3.Error as e:
+            print("Can't connect to db, error %s" % e)
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details("Can't fetch from db")
+
+    def GetSingularItem(self, request, context):
+        print("Rquest {} {}".format(request.username, request.token))
+        try:
+            self.authenticate_user(request.username, request.token)
+            backend_items: List[item_messages.ItemInfo] = stub.ReadItem(item_messages.ReadItemRequest(user_id=request.username,item_id=request.item_id)).info
+            response = [frontend_messages.ItemInfo(description=item.description, object_id=item.object_id, shelf_id=item.shelf_id, price=item.price, stock=item.stock) for item in backend_items]
+        except sqlite3.Error as e:
+            print("Can't connect to db, error %s" % e)
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details("Can't fetch from db")
+        return super().GetSingularItem(request, context)()
+
+    def authenticate_user(self, username, token):
+        connect = CredentialDB()
+        cur = connect.cur.execute("""SELECT token, tokenTime FROM credential WHERE username = ?""",
+                                  ((username,)))
+        if cur:
+            tokenInfo = cur.fetchone()
+            dbToken = tokenInfo[0]
+            dbTokenTimestamp = tokenInfo[1]
+            tokenLife = time.time() - dbTokenTimestamp
+            if dbToken == token and tokenLife > 2628000:
+                raise Exception("Token expired")
+        else:
+            raise Exception("Auth database not available")
+
+    def _shelvesMessageGenerator(self, shelf=None):
+        dummyShelf = {
+            "dummy1": frontend_messages.ShelfInfo(shelf_id='dummy1',shelf_count=1),
+            "dummy2": frontend_messages.ShelfInfo(shelf_id='dummy2',shelf_count=2),
+            "dummy3": frontend_messages.ShelfInfo(shelf_id='dummy3',shelf_count=3),
+            "dummy4": frontend_messages.ShelfInfo(shelf_id='dummy4',shelf_count=4)
+        }   
+        if shelf == "":
+            return dummyShelf.values()
+        else:
+            if shelf in dummyShelf:
+                return [dummyShelf.get(shelf)]
+            else:
+                raise Exception("No such shelf")   
+
+    def _itemsMessageGenerator(self, shelf=None):
+        dummyItem = {
+            "dummy1": frontend_messages.ItemInfo(description='dummy1', object_id='dummy1',price=1, stock=1),
+            "dummy2": frontend_messages.ItemInfo(description='dummy2',  object_id='dummy2',price=2, stock=2),
+            "dummy3": frontend_messages.ItemInfo(description='dummy3', object_id='dummy3',price=3, stock=3),
+            "dummy4": frontend_messages.ItemInfo(description='dummy4', object_id='dummy4',price=4, stock=4)
+        }
+        if shelf == "":   
+            return dummyItem.values()
+        else:
+            if shelf in dummyItem:
+                return dummyItem.get(shelf)
+            else:
+                raise Exception("No such shelf")    
+    
+    def _listReadGeneratort(self,type):
+        pass
 
 
 if __name__ == '__main__':
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=4))
+    channel = grpc.insecure_channel('localhost:50052')
     frontend_grpc.add_SimsFrontendServicer_to_server(FrontendServicer(), server)
+    stub = backend_grpc.SimsInventoryInformationSystemStub(channel)
     server.add_insecure_port('[::]:50051')
     server.start()
     print("Running")

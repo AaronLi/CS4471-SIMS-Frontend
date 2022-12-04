@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n!backend_proto/item_messages.proto\x12\x10sims_ims_backend\"P\n\x08ItemInfo\x12\x13\n\x0b\x64\x65scription\x18\x01 \x01(\t\x12\x11\n\tobject_id\x18\x02 \x01(\r\x12\r\n\x05price\x18\x03 \x01(\r\x12\r\n\x05stock\x18\x04 \x01(\r\"u\n\x11\x43reateItemRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x10\n\x08shelf_id\x18\x02 \x01(\t\x12\x13\n\x0bslot_number\x18\x03 \x01(\r\x12(\n\x04info\x18\x04 \x01(\x0b\x32\x1a.sims_ims_backend.ItemInfo\"\x14\n\x12\x43reateItemResponse\"3\n\x0fReadItemRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x0f\n\x07item_id\x18\x02 \x01(\t\"<\n\x10ReadItemResponse\x12(\n\x04info\x18\x01 \x01(\x0b\x32\x1a.sims_ims_backend.ItemInfo\"c\n\x11UpdateItemRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x0f\n\x07item_id\x18\x02 \x01(\t\x12,\n\x08new_info\x18\x03 \x01(\x0b\x32\x1a.sims_ims_backend.ItemInfo\"\x14\n\x12UpdateItemResponse\"5\n\x11\x44\x65leteItemRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x0f\n\x07item_id\x18\x02 \x01(\t\"\x14\n\x12\x44\x65leteItemResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n!backend_proto/item_messages.proto\x12\x10sims_ims_backend\"b\n\x08ItemInfo\x12\x13\n\x0b\x64\x65scription\x18\x01 \x01(\t\x12\x11\n\tobject_id\x18\x02 \x01(\r\x12\x10\n\x08shelf_id\x18\x03 \x01(\t\x12\r\n\x05price\x18\x04 \x01(\x02\x12\r\n\x05stock\x18\x05 \x01(\r\"N\n\x11\x43reateItemRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12(\n\x04info\x18\x02 \x01(\x0b\x32\x1a.sims_ims_backend.ItemInfo\"4\n\x12\x43reateItemResponse\x12\x10\n\x08shelf_id\x18\x01 \x01(\t\x12\x0c\n\x04slot\x18\x02 \x01(\r\"W\n\x0fReadItemRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x0f\n\x07item_id\x18\x02 \x01(\r\x12\x15\n\x08shelf_id\x18\x03 \x01(\tH\x00\x88\x01\x01\x42\x0b\n\t_shelf_id\"<\n\x10ReadItemResponse\x12(\n\x04info\x18\x01 \x03(\x0b\x32\x1a.sims_ims_backend.ItemInfo\"c\n\x11UpdateItemRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x0f\n\x07item_id\x18\x02 \x01(\t\x12,\n\x08new_info\x18\x03 \x01(\x0b\x32\x1a.sims_ims_backend.ItemInfo\"\x14\n\x12UpdateItemResponse\"5\n\x11\x44\x65leteItemRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x0f\n\x07item_id\x18\x02 \x01(\t\"\x14\n\x12\x44\x65leteItemResponseb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'backend_proto.item_messages_pb2', globals())
@@ -21,21 +21,21 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   _ITEMINFO._serialized_start=55
-  _ITEMINFO._serialized_end=135
-  _CREATEITEMREQUEST._serialized_start=137
-  _CREATEITEMREQUEST._serialized_end=254
-  _CREATEITEMRESPONSE._serialized_start=256
-  _CREATEITEMRESPONSE._serialized_end=276
-  _READITEMREQUEST._serialized_start=278
-  _READITEMREQUEST._serialized_end=329
-  _READITEMRESPONSE._serialized_start=331
-  _READITEMRESPONSE._serialized_end=391
-  _UPDATEITEMREQUEST._serialized_start=393
-  _UPDATEITEMREQUEST._serialized_end=492
-  _UPDATEITEMRESPONSE._serialized_start=494
-  _UPDATEITEMRESPONSE._serialized_end=514
-  _DELETEITEMREQUEST._serialized_start=516
-  _DELETEITEMREQUEST._serialized_end=569
-  _DELETEITEMRESPONSE._serialized_start=571
-  _DELETEITEMRESPONSE._serialized_end=591
+  _ITEMINFO._serialized_end=153
+  _CREATEITEMREQUEST._serialized_start=155
+  _CREATEITEMREQUEST._serialized_end=233
+  _CREATEITEMRESPONSE._serialized_start=235
+  _CREATEITEMRESPONSE._serialized_end=287
+  _READITEMREQUEST._serialized_start=289
+  _READITEMREQUEST._serialized_end=376
+  _READITEMRESPONSE._serialized_start=378
+  _READITEMRESPONSE._serialized_end=438
+  _UPDATEITEMREQUEST._serialized_start=440
+  _UPDATEITEMREQUEST._serialized_end=539
+  _UPDATEITEMRESPONSE._serialized_start=541
+  _UPDATEITEMRESPONSE._serialized_end=561
+  _DELETEITEMREQUEST._serialized_start=563
+  _DELETEITEMREQUEST._serialized_end=616
+  _DELETEITEMRESPONSE._serialized_start=618
+  _DELETEITEMRESPONSE._serialized_end=638
 # @@protoc_insertion_point(module_scope)
