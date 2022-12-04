@@ -1,4 +1,5 @@
 from concurrent import futures
+from typing import List
 
 import frontend_proto.frontend_pb2_grpc as frontend_grpc
 import frontend_proto.frontend_messages_pb2 as frontend_messages
@@ -82,19 +83,8 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
     def CreateShelf(self, request, context):
         print("Rquest {} {}".format(request.username, request.token))
         try:
-            connect = CredentialDB()
-            cur = connect.cur.execute("""SELECT token, tokenTime FROM credential WHERE username = ?""",
-                                      ((request.username,)))
-            if cur:
-                tokenInfo = cur.fetchone()
-                dbToken = tokenInfo[0]
-                dbTokenTimestamp = tokenInfo[1]
-                tokenLife = time.time() - dbTokenTimestamp
-                if dbToken == request.token and tokenLife < 300:
-                    print(request.shelfinfo)
-                    return frontend_messages.ActionApproved()
-                else:
-                    raise Exception("Token expired")
+            self.authenticate_user(request.username, request.token)
+            return frontend_messages.ActionApproved()
         except sqlite3.Error as e:
             print("Can't connect to db, error %s" % e)
             context.set_code(grpc.StatusCode.INTERNAL)
@@ -104,18 +94,8 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
     def GetShelves(self, request, context):
         print("Rquest {} {}".format(request.username, request.token))
         try:
-            connect = CredentialDB()
-            cur = connect.cur.execute("""SELECT token, tokenTime FROM credential WHERE username = ?""",
-                                      ((request.username,)))
-            if cur:
-                tokenInfo = cur.fetchone()
-                dbToken = tokenInfo[0]
-                dbTokenTimestamp = tokenInfo[1]
-                tokenLife = time.time() - dbTokenTimestamp
-                if dbToken == request.token and tokenLife < 300:
-                    return frontend_messages.Shelves(shelves=self._shelvesMessageGenerator(shelf=request.shelf_id))
-                else:
-                    raise Exception("Token expired")
+            self.authenticate_user(request.username, request.token)
+            return frontend_messages.Shelves(shelves=self._shelvesMessageGenerator(shelf=request.shelf_id))
         except sqlite3.Error as e:
             print("Can't connect to db, error %s" % e)
             context.set_code(grpc.StatusCode.INTERNAL)
@@ -124,23 +104,26 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
     def GetItems(self, request, context):
         print("Rquest {} {}".format(request.username, request.token))
         try:
-            connect = CredentialDB()
-            cur = connect.cur.execute("""SELECT token, tokenTime FROM credential WHERE username = ?""",
-                                      ((request.username,)))
-            if cur:
-                tokenInfo = cur.fetchone()
-                dbToken = tokenInfo[0]
-                dbTokenTimestamp = tokenInfo[1]
-                tokenLife = time.time() - dbTokenTimestamp
-                if dbToken == request.token and tokenLife < 300:
-                    backend_response = stub.ReadItem(item_messages.ReadItemRequest(user_id=request.username,shelf_id=request.shelf_id))
-                    return frontend_messages.Items(items=backend_response)
-                else:
-                    raise Exception("Token expired")
+            self.authenticate_user(request.username, request.token)
+            backend_items: List[item_messages.ItemInfo] = stub.ReadItem(item_messages.ReadItemRequest(user_id=request.username,shelf_id=request.shelf_id)).info
+            response = [frontend_messages.ItemInfo(description=item.description, object_id=item.object_id, shelf_id=item.shelf_id, price=item.price, stock=item.stock) for item in backend_items]
+            return frontend_messages.Items(items=response)
         except sqlite3.Error as e:
             print("Can't connect to db, error %s" % e)
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details("Can't fetch from db")
+
+    def authenticate_user(self, username, token):
+        connect = CredentialDB()
+        cur = connect.cur.execute("""SELECT token, tokenTime FROM credential WHERE username = ?""",
+                                  ((username,)))
+        if cur:
+            tokenInfo = cur.fetchone()
+            dbToken = tokenInfo[0]
+            dbTokenTimestamp = tokenInfo[1]
+            tokenLife = time.time() - dbTokenTimestamp
+            if dbToken == token and tokenLife > 2628000:
+                raise Exception("Token expired")
 
     def _shelvesMessageGenerator(self, shelf=None):
         dummyShelf = {
