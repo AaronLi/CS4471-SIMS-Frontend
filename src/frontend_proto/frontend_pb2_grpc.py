@@ -42,7 +42,7 @@ class SimsFrontendStub(object):
         self.GetSingularItem = channel.unary_unary(
                 '/sims_ims_frontend.SimsFrontend/GetSingularItem',
                 request_serializer=frontend__proto_dot_frontend__messages__pb2.GetItemRequest.SerializeToString,
-                response_deserializer=frontend__proto_dot_frontend__messages__pb2.Items.FromString,
+                response_deserializer=frontend__proto_dot_frontend__messages__pb2.ItemInfo.FromString,
                 )
         self.CreateShelf = channel.unary_unary(
                 '/sims_ims_frontend.SimsFrontend/CreateShelf',
@@ -127,7 +127,7 @@ def add_SimsFrontendServicer_to_server(servicer, server):
             'GetSingularItem': grpc.unary_unary_rpc_method_handler(
                     servicer.GetSingularItem,
                     request_deserializer=frontend__proto_dot_frontend__messages__pb2.GetItemRequest.FromString,
-                    response_serializer=frontend__proto_dot_frontend__messages__pb2.Items.SerializeToString,
+                    response_serializer=frontend__proto_dot_frontend__messages__pb2.ItemInfo.SerializeToString,
             ),
             'CreateShelf': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateShelf,
@@ -242,7 +242,7 @@ class SimsFrontend(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/sims_ims_frontend.SimsFrontend/GetSingularItem',
             frontend__proto_dot_frontend__messages__pb2.GetItemRequest.SerializeToString,
-            frontend__proto_dot_frontend__messages__pb2.Items.FromString,
+            frontend__proto_dot_frontend__messages__pb2.ItemInfo.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
