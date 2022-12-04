@@ -115,6 +115,18 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details("Can't fetch from db")
 
+    def GetSingularItem(self, request, context):
+        print("Rquest {} {}".format(request.username, request.token))
+        try:
+            self.authenticate_user(request.username, request.token)
+            backend_items: List[item_messages.ItemInfo] = stub.ReadItem(item_messages.ReadItemRequest(user_id=request.username,item_id=request.item_id)).info
+            response = [frontend_messages.ItemInfo(description=item.description, object_id=item.object_id, shelf_id=item.shelf_id, price=item.price, stock=item.stock) for item in backend_items]
+        except sqlite3.Error as e:
+            print("Can't connect to db, error %s" % e)
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details("Can't fetch from db")
+        return super().GetSingularItem(request, context)()
+
     def authenticate_user(self, username, token):
         connect = CredentialDB()
         cur = connect.cur.execute("""SELECT token, tokenTime FROM credential WHERE username = ?""",

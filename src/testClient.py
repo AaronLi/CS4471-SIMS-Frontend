@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 def testGetItem(stub):
-    backend_response = stub.ReadItem(item_messages.ReadItemRequest(user_id="usertest",shelf_id="shelf1"))
+    backend_response = stub.ReadItem(item_messages.ReadItemRequest(user_id="usertest",item_id=1223))
     print(backend_response)
 
 def testGetShelf(stub):

@@ -30,12 +30,10 @@ class DeleteShelfResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class ReadShelfRequest(_message.Message):
-    __slots__ = ["target", "user_id"]
-    TARGET_FIELD_NUMBER: _ClassVar[int]
+    __slots__ = ["user_id"]
     USER_ID_FIELD_NUMBER: _ClassVar[int]
-    target: str
     user_id: str
-    def __init__(self, user_id: _Optional[str] = ..., target: _Optional[str] = ...) -> None: ...
+    def __init__(self, user_id: _Optional[str] = ...) -> None: ...
 
 class ReadShelfResponse(_message.Message):
     __slots__ = ["info"]
