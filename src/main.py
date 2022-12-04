@@ -124,6 +124,8 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
             tokenLife = time.time() - dbTokenTimestamp
             if dbToken == token and tokenLife > 2628000:
                 raise Exception("Token expired")
+        else:
+            raise Exception("Auth database not available")
 
     def _shelvesMessageGenerator(self, shelf=None):
         dummyShelf = {
