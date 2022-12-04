@@ -80,10 +80,11 @@ class FrontendServicer(frontend_grpc.SimsFrontendServicer):
     def ClientCmd(self, request, context):
         return super().ClientCmd(request, context)
 
-    def CreateShelf(self, request, context):
+    def CreateShelf(self, request: frontend_messages.CreateShelfRequest, context):
         print("Rquest {} {}".format(request.username, request.token))
         try:
             self.authenticate_user(request.username, request.token)
+            stub.CreateShelf(shelf_messages.CreateShelfRequest(user_id=request.username, info=shelf_messages.ShelfInfo(shelf_id=request.shelfinfo.shelf_id, shelf_count=request.shelfinfo.shelf_count)))
             return frontend_messages.ActionApproved()
         except sqlite3.Error as e:
             print("Can't connect to db, error %s" % e)

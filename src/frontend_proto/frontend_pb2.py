@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 from frontend_proto import frontend_messages_pb2 as frontend__proto_dot_frontend__messages__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1d\x66rontend_proto/frontend.proto\x12\x11sims_ims_frontend\x1a&frontend_proto/frontend_messages.proto2\xc5\x04\n\x0cSimsFrontend\x12G\n\x08\x43redAuth\x12\x1f.sims_ims_frontend.LoginRequest\x1a\x18.sims_ims_frontend.Token\"\x00\x12N\n\x06SignUp\x12\x1f.sims_ims_frontend.LoginRequest\x1a!.sims_ims_frontend.ActionApproved\"\x00\x12Q\n\tClientCmd\x12\x1f.sims_ims_frontend.ClientAction\x1a!.sims_ims_frontend.ActionApproved\"\x00\x12P\n\nGetShelves\x12$.sims_ims_frontend.GetShelvesRequest\x1a\x1a.sims_ims_frontend.Shelves\"\x00\x12J\n\x08GetItems\x12\".sims_ims_frontend.GetItemsRequest\x1a\x18.sims_ims_frontend.Items\"\x00\x12P\n\x0fGetSingularItem\x12!.sims_ims_frontend.GetItemRequest\x1a\x18.sims_ims_frontend.Items\"\x00\x12Y\n\x0b\x43reateShelf\x12%.sims_ims_frontend.CreateShelfRequest\x1a!.sims_ims_frontend.ActionApproved\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1d\x66rontend_proto/frontend.proto\x12\x11sims_ims_frontend\x1a&frontend_proto/frontend_messages.proto2\xc8\x04\n\x0cSimsFrontend\x12G\n\x08\x43redAuth\x12\x1f.sims_ims_frontend.LoginRequest\x1a\x18.sims_ims_frontend.Token\"\x00\x12N\n\x06SignUp\x12\x1f.sims_ims_frontend.LoginRequest\x1a!.sims_ims_frontend.ActionApproved\"\x00\x12Q\n\tClientCmd\x12\x1f.sims_ims_frontend.ClientAction\x1a!.sims_ims_frontend.ActionApproved\"\x00\x12P\n\nGetShelves\x12$.sims_ims_frontend.GetShelvesRequest\x1a\x1a.sims_ims_frontend.Shelves\"\x00\x12J\n\x08GetItems\x12\".sims_ims_frontend.GetItemsRequest\x1a\x18.sims_ims_frontend.Items\"\x00\x12S\n\x0fGetSingularItem\x12!.sims_ims_frontend.GetItemRequest\x1a\x1b.sims_ims_frontend.ItemInfo\"\x00\x12Y\n\x0b\x43reateShelf\x12%.sims_ims_frontend.CreateShelfRequest\x1a!.sims_ims_frontend.ActionApproved\"\x00\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'frontend_proto.frontend_pb2', globals())
@@ -22,5 +22,5 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   _SIMSFRONTEND._serialized_start=93
-  _SIMSFRONTEND._serialized_end=674
+  _SIMSFRONTEND._serialized_end=677
 # @@protoc_insertion_point(module_scope)
